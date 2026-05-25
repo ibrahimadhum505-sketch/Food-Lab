@@ -1,0 +1,1179 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dudhmon - Food Lab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background: linear-gradient(135deg, #dde4e0 0%, #c8d5d0 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* ===== BREADCRUMB NAV ===== */
+        .breadcrumb-bar {
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 14px 40px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .breadcrumb-bar a {
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .breadcrumb-bar a:hover { text-decoration: underline; }
+
+        .breadcrumb-bar .sep {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .breadcrumb-bar .current {
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        /* ===== PAGE BODY ===== */
+        .page-body {
+            padding: 30px 40px 60px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* ===== PRODUCT CARD ===== */
+        .product-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+        }
+
+        .product-card-logo {
+            width: 110px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .product-main-row {
+            display: flex;
+            gap: 60px;
+            align-items: flex-start;
+        }
+
+        .product-image-col {
+            flex: 0 0 380px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .product-image-col .card-crop {
+            width: 355px;
+            height: 319px;
+            background-image: url('https://i.imgur.com/glh0jMk.png');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .product-info-col {
+            flex: 1;
+            padding-top: 10px;
+        }
+
+        .product-name {
+            font-family: 'Lato', sans-serif;
+            font-size: 2.4rem;
+            font-weight: 400;
+            color: #111;
+            margin-bottom: 18px;
+        }
+
+        .product-price {
+            font-family: 'Lato', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2a9d42;
+            margin-bottom: 30px;
+        }
+
+        .product-price .taka-sign {
+            font-size: 1.4rem;
+        }
+
+        /* Quantity + Add to Cart row */
+        .action-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .qty-control {
+            display: flex;
+            align-items: center;
+            border: 1.5px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .qty-btn {
+            background: #fff;
+            border: none;
+            width: 40px;
+            height: 44px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #333;
+            transition: background 0.2s;
+        }
+
+        .qty-btn:hover { background: #f0f0f0; }
+
+        .qty-display {
+            width: 50px;
+            height: 44px;
+            text-align: center;
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            border: none;
+            border-left: 1.5px solid #ccc;
+            border-right: 1.5px solid #ccc;
+            outline: none;
+        }
+
+        .add-to-cart-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #0d2b1d;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 26px;
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .add-to-cart-btn:hover { background: #1a4a30; }
+
+        .add-to-cart-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .wishlist-btn {
+            width: 44px;
+            height: 44px;
+            border: 1.5px solid #ccc;
+            border-radius: 8px;
+            background: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: border-color 0.2s, color 0.2s;
+            color: #999;
+        }
+
+        .wishlist-btn:hover { border-color: #e74c3c; color: #e74c3c; }
+
+        .wishlist-btn.active { color: #e74c3c; border-color: #e74c3c; }
+
+        /* Buy Now */
+        .buy-now-btn {
+            width: 100%;
+            max-width: 360px;
+            padding: 14px;
+            border: 1.5px solid #333;
+            border-radius: 8px;
+            background: #fff;
+            font-family: 'Lato', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: #111;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            margin-top: 4px;
+        }
+
+        .buy-now-btn:hover { background: #0d2b1d; color: #fff; border-color: #0d2b1d; }
+
+        /* Category tag */
+        .product-category {
+            margin-top: 40px;
+            padding-top: 16px;
+            font-family: 'Lato', sans-serif;
+            font-size: 0.95rem;
+            color: #333;
+        }
+
+        .product-category a {
+            color: #333;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        /* ===== DIVIDER ===== */
+        .section-divider {
+            border: none;
+            border-top: 1.5px solid #e0e0e0;
+            margin: 0;
+        }
+
+        /* ===== REVIEWS SECTION ===== */
+        .reviews-section {
+            background: #fff;
+            border-radius: 0 0 16px 16px;
+            padding: 36px 40px 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+        }
+
+        .reviews-title {
+            font-family: 'Lato', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 6px;
+        }
+
+        .reviews-subtitle {
+            font-family: 'Lato', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 400;
+            color: #111;
+            margin-bottom: 24px;
+        }
+
+        /* Star Rating */
+        .star-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 28px;
+        }
+
+        .star-row .stars {
+            display: flex;
+            gap: 4px;
+        }
+
+        .star {
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #111;
+            transition: color 0.15s;
+            user-select: none;
+        }
+
+        .star.active { color: #f0a500; }
+        .star:hover { color: #f0a500; }
+
+        .your-rating-label {
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            color: #444;
+            margin-left: 10px;
+        }
+
+        /* Review form fields */
+        .review-textarea {
+            width: 100%;
+            min-height: 140px;
+            padding: 16px 18px;
+            border: 1px solid #aaa;
+            border-radius: 6px;
+            background: #e8efec;
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            color: #1a7a36;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.2s;
+            margin-bottom: 18px;
+        }
+
+        .review-textarea::placeholder {
+            color: rgba(26, 122, 54, 0.5);
+        }
+
+        .review-textarea:focus {
+            border-color: #2a9d42;
+        }
+
+        .name-email-row {
+            display: flex;
+            gap: 18px;
+            margin-bottom: 18px;
+        }
+
+        .form-input {
+            flex: 1;
+            padding: 13px 16px;
+            border: 1px solid #aaa;
+            border-radius: 6px;
+            background: #e8efec;
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            color: #1a7a36;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-input::placeholder {
+            color: rgba(26, 122, 54, 0.5);
+        }
+
+        .form-input:focus {
+            border-color: #2a9d42;
+        }
+
+        .save-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+
+        .save-row input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #2a9d42;
+            cursor: pointer;
+            border: 1px solid #aaa;
+            border-radius: 4px;
+        }
+
+        .save-row label {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.95rem;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            border: 1.5px solid #aaa;
+            border-radius: 8px;
+            background: #e8efec;
+            font-family: 'Lato', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: #2a9d42;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: #2a9d42;
+            color: #fff;
+            border-color: #2a9d42;
+        }
+
+        /* Custom Cards for Related Products */
+        .custom-card {
+            width: 100%;
+            height: 460px;
+            background: #fff;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .custom-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+        }
+
+        .custom-card-body {
+            flex: 1;
+            padding: 20px 20px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .custom-card-logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 80px;
+            height: auto;
+        }
+
+        .custom-card-img-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-top: 40px;
+            margin-bottom: 10px;
+        }
+
+        .custom-card-img {
+            width: 294px;
+            height: 221px;
+            object-fit: contain;
+            transform: none;
+            max-width: 100%;
+            max-height: none;
+        }
+
+        .custom-card-name {
+            font-family: 'Agrandir', sans-serif;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #2a9d42;
+            text-align: left;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
+        .custom-card-footer {
+            background: #fff; border-top: 1px solid #f2f2f2;
+            padding: 18px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .custom-card-price {
+            font-family: 'Agrandir', sans-serif;
+            font-weight: bold;
+            font-size: 1.6rem;
+            color: #2a9d42;
+        }
+
+        .custom-card-cart-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 2px solid #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .custom-card-cart-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* ===== RELATED PRODUCTS ===== */
+        .related-section {
+            margin-top: 50px;
+        }
+
+        .related-title {
+            font-family: 'Lato', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #111;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .related-card {
+            background: transparent;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .related-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+        }
+
+        .related-card-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .product-main-row { flex-direction: column; gap: 30px; }
+            .product-image-col { flex: unset; }
+            .related-grid { grid-template-columns: repeat(2, 1fr); }
+            .page-body { padding: 20px; }
+        }
+
+        @media (max-width: 500px) {
+            .related-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .name-email-row { flex-direction: column; }
+        }
+    
+        /* ========== CART NOTIFICATION ========== */
+        .cart-notification {
+            position: fixed;
+            top: -100px;
+            right: 30px;
+            background-color: #4b4b4b;
+            border-radius: 12px;
+            padding: 15px 50px 15px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            z-index: 10000;
+            opacity: 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        @keyframes popDownDesktop {
+            0% { top: -100px; opacity: 0; }
+            50% { opacity: 0.7; }
+            100% { top: 25px; opacity: 1; }
+        }
+        @keyframes popDownMobile {
+            0% { top: -100px; opacity: 0; }
+            50% { opacity: 0.7; }
+            100% { top: 60px; opacity: 1; }
+        }
+        .cart-notification.show {
+            animation: popDownDesktop 0.4s forwards;
+        }
+        .cart-notification-content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .cart-notification-text {
+            color: #fff;
+            font-family: 'Lato', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 400;
+            white-space: nowrap;
+        }
+        .cart-notification-view-cart {
+            background-color: #fff;
+            color: #2a9d42;
+            border: none;
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+        .cart-notification-view-cart:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+        .cart-notification-close {
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            transition: transform 0.2s;
+            width: 34px;
+            height: 34px;
+        }
+        .cart-notification-close:hover {
+            transform: scale(1.15);
+        }
+        @media (max-width: 768px) {
+            .cart-notification {
+                right: 0;
+                left: 0;
+                border-radius: 0;
+                width: 100%;
+                padding: 15px 20px;
+                top: -100px;
+            }
+            .cart-notification.show {
+                animation: popDownMobile 0.4s forwards;
+            }
+            .cart-notification-close {
+                top: 8px;
+                right: 10px;
+            }
+            .cart-notification-text {
+                font-size: 0.95rem;
+            }
+            .cart-notification-view-cart {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
+        }
+
+</style>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+    <!-- Header -->
+        
+    <div class="sticky-top-part">
+        <header class="main-header">
+            <div class="header-content">
+                <button class="hamburger-btn" id="mobile-nav-toggle" aria-label="Open Navigation">
+                    <span></span><span></span><span></span>
+                </button>
+                <nav class="header-nav">
+                    <div class="nav-row">
+                        <a href="index.html" class="nav-link">Home</a>
+                        <a href="shop.html" class="nav-link">Shop</a>
+                        <a href="cart.html" class="nav-link">Cart</a>
+                    </div>
+                    <div class="nav-row">
+                        <a href="about.html" class="nav-link">About Us</a>
+                        <a href="contacts.html" class="nav-link">Contacts</a>
+                    </div>
+                </nav>
+                <div class="header-center">
+                    <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="logo" id="food-lab-logo">
+                    <div class="slogan-wrapper">
+                        <div class="slogan slogan-text-container" id="food-lab-slogan">
+                            <span class="slogan-part-1">GET A NEW EXPERIENCE OF</span>
+                            <span class="slogan-part-2">
+                                <span class="stagger-letter high">T</span>
+                                <span class="stagger-letter low">A</span>
+                                <span class="stagger-letter high">S</span>
+                                <span class="stagger-letter low">T</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-icons">
+                    <a href="#" class="header-icon-btn" aria-label="Search">
+                        <i class="fa-brands fa-searchengin" style="color: rgb(255, 255, 255);"></i>
+                    </a>
+                    <a href="#" class="header-icon-btn" aria-label="Profile">
+                        <i class="fa-solid fa-user-lock" style="color: rgb(255, 255, 255);"></i>
+                    </a>
+                    <a href="#" class="header-icon-btn" aria-label="Wishlist">
+                        <i class="fa-solid fa-heart" style="color: rgb(255, 255, 255);"></i>
+                    </a>
+                    <a href="cart.html" class="header-icon-btn" aria-label="Cart" style="position:relative; display:inline-block;">
+                        <i class="fa-solid fa-cart-shopping" style="color: rgb(255, 255, 255);"></i>
+                        <i class="fa-solid fa-circle-plus fa-2xs cart-plus-anim" style="color:#db3317;"></i>
+                        <span class="cart-badge telegraf-font" id="cartBadge" style="display:flex; position:absolute; top:-6px; right:-6px; background:#2a9d42; color:#fff; font-size:11px; font-family:'Canva Sans', sans-serif; font-weight:normal; width:18px; height:18px; border-radius:50%; align-items:center; justify-content:center; box-shadow:0 2px 4px rgba(0,0,0,0.2);">0</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+    </div>
+
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb-bar">
+        <a href="index.html">Home</a>
+        <span class="sep">&gt;</span>
+        <a href="shop.html">Shop</a>
+        <span class="sep">&gt;</span>
+        <span class="current">Dudhmon</span>
+    </nav>
+
+    <!-- Page Body -->
+    <div class="page-body">
+
+        <!-- Product Card -->
+        <div class="product-card">
+            <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="product-card-logo">
+
+            <div class="product-main-row">
+                <!-- Product Image -->
+                <div class="product-image-col">
+                    <div class="card-crop"></div>
+                </div>
+
+                <!-- Product Info -->
+                <div class="product-info-col">
+                    <h1 class="product-name">Dudhmon</h1>
+                    <div class="product-price">
+                        <span class="taka-sign">৳</span> 280
+                    </div>
+
+                    <div class="action-row">
+                        <!-- Quantity -->
+                        <div class="qty-control">
+                            <button class="qty-btn" id="qtyMinus" onclick="changeQty(-1)">−</button>
+                            <input type="text" class="qty-display" id="qtyVal" value="1" readonly>
+                            <button class="qty-btn" id="qtyPlus" onclick="changeQty(1)">+</button>
+                        </div>
+
+                        <!-- Add To Cart -->
+                        <button class="add-to-cart-btn" id="addToCartBtn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                            </svg>
+                            Add To Cart
+                        </button>
+
+                        <!-- Wishlist -->
+                        <button class="wishlist-btn" id="wishlistBtn" onclick="toggleWishlist(this)">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Buy Now -->
+                    <button class="buy-now-btn" id="buyNowBtn">Buy Now</button>
+                </div>
+            </div>
+
+            <!-- Category -->
+            <div class="product-category">
+                Category: <a href="index.html">Sweets & Desserts</a>
+            </div>
+
+            <!-- Divider before reviews -->
+            <hr class="section-divider" style="margin-top: 30px;">
+
+            <!-- Reviews Section -->
+            <div class="reviews-section" style="padding: 36px 0 0; box-shadow: none; border-radius: 0;">
+                <div class="reviews-title">Reviews</div>
+                <div class="reviews-subtitle">Review our Dudhmon</div>
+
+                <!-- Star Rating -->
+                <div class="star-row">
+                    <div class="stars" id="starContainer">
+                        <span class="star" data-val="1" onclick="rateStar(1)">★</span>
+                        <span class="star" data-val="2" onclick="rateStar(2)">★</span>
+                        <span class="star" data-val="3" onclick="rateStar(3)">★</span>
+                        <span class="star" data-val="4" onclick="rateStar(4)">★</span>
+                        <span class="star" data-val="5" onclick="rateStar(5)">★</span>
+                    </div>
+                    <span class="your-rating-label">Your rating</span>
+                </div>
+
+                <!-- Review Form -->
+                <textarea class="review-textarea" id="reviewText" placeholder="Your review*"></textarea>
+
+                <div class="name-email-row">
+                    <input type="text" class="form-input" id="reviewName" placeholder="Name*">
+                    <input type="email" class="form-input" id="reviewEmail" placeholder="Email*">
+                </div>
+
+                <div class="save-row">
+                    <input type="checkbox" id="saveInfo">
+                    <label for="saveInfo">Save my name, email, and website in this browser for the next time I comment.</label>
+                </div>
+
+                <button class="submit-btn" id="submitReviewBtn" onclick="submitReview()">Submit</button>
+            </div>
+        </div>
+
+        <!-- Related Products -->
+        <div class="related-section">
+            <div class="related-title">Related Products</div>
+
+            <div class="related-grid">
+                <div class="custom-card" onclick="window.location.href='Chanar-Murki.html'">
+                    <div class="custom-card-body">
+                        <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="custom-card-logo">
+                        <div class="custom-card-img-wrapper">
+                            <img src="https://i.imgur.com/YeCcuUw.png" alt="Chanar Murki" class="custom-card-img">
+                        </div>
+                        <div class="custom-card-name">Chanar Murki</div>
+                    </div>
+                    <div class="custom-card-footer">
+                        <div class="custom-card-price">৳ 250</div>
+                        <div class="custom-card-cart-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="2"></circle><circle cx="20" cy="21" r="2"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="custom-card" onclick="window.location.href='Shornomukhi.html'">
+                    <div class="custom-card-body">
+                        <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="custom-card-logo">
+                        <div class="custom-card-img-wrapper">
+                            <img src="https://i.imgur.com/UgcfVUo.png" alt="Shornomukhi" class="custom-card-img">
+                        </div>
+                        <div class="custom-card-name">Shornomukhi</div>
+                    </div>
+                    <div class="custom-card-footer">
+                        <div class="custom-card-price">৳ 300</div>
+                        <div class="custom-card-cart-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="2"></circle><circle cx="20" cy="21" r="2"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="custom-card" onclick="window.location.href='Pera-Sandesh.html'">
+                    <div class="custom-card-body">
+                        <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="custom-card-logo">
+                        <div class="custom-card-img-wrapper">
+                            <img src="https://i.imgur.com/XyziBDl.png" alt="Pera Sandesh" class="custom-card-img">
+                        </div>
+                        <div class="custom-card-name">Pera Sandesh</div>
+                    </div>
+                    <div class="custom-card-footer">
+                        <div class="custom-card-price">৳ 350</div>
+                        <div class="custom-card-cart-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="2"></circle><circle cx="20" cy="21" r="2"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="custom-card" onclick="window.location.href='Lalmon.html'">
+                    <div class="custom-card-body">
+                        <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="custom-card-logo">
+                        <div class="custom-card-img-wrapper">
+                            <img src="https://i.imgur.com/qqNlx35.png" alt="Lalmon" class="custom-card-img">
+                        </div>
+                        <div class="custom-card-name">Lalmon</div>
+                    </div>
+                    <div class="custom-card-footer">
+                        <div class="custom-card-price">৳ 320</div>
+                        <div class="custom-card-cart-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="2"></circle><circle cx="20" cy="21" r="2"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    
+<script>
+        // ===== QUANTITY =====
+        let qty = 1;
+        function changeQty(dir) {
+            qty = Math.max(1, qty + dir);
+            document.getElementById('qtyVal').value = qty;
+        }
+
+        // ===== WISHLIST TOGGLE =====
+        function toggleWishlist(btn) {
+            btn.classList.toggle('active');
+            const svg = btn.querySelector('svg');
+            if (btn.classList.contains('active')) {
+                svg.setAttribute('fill', '#e74c3c');
+                svg.setAttribute('stroke', '#e74c3c');
+            } else {
+                svg.setAttribute('fill', 'none');
+                svg.setAttribute('stroke', 'currentColor');
+            }
+        }
+
+        // ===== STAR RATING =====
+        let currentRating = 0;
+
+        function rateStar(val) {
+            if (currentRating === val) {
+                // Click same star again — clear rating
+                currentRating = 0;
+            } else {
+                currentRating = val;
+            }
+            updateStars();
+        }
+
+        function updateStars() {
+            const stars = document.querySelectorAll('.star');
+            stars.forEach(star => {
+                const starVal = parseInt(star.getAttribute('data-val'));
+                if (starVal <= currentRating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+
+        // Hover preview
+        document.querySelectorAll('.star').forEach(star => {
+            star.addEventListener('mouseenter', function() {
+                const hoverVal = parseInt(this.getAttribute('data-val'));
+                document.querySelectorAll('.star').forEach(s => {
+                    s.style.color = parseInt(s.getAttribute('data-val')) <= hoverVal ? '#f0a500' : '#111';
+                });
+            });
+            star.addEventListener('mouseleave', function() {
+                document.querySelectorAll('.star').forEach(s => {
+                    s.style.color = '';
+                });
+                updateStars();
+            });
+        });
+
+        // ===== SUBMIT REVIEW =====
+        function submitReview() {
+            const review = document.getElementById('reviewText').value.trim();
+            const name = document.getElementById('reviewName').value.trim();
+            const email = document.getElementById('reviewEmail').value.trim();
+            if (!review || !name || !email || currentRating === 0) {
+                alert('Please fill in all fields and select a rating before submitting.');
+                return;
+            }
+            alert('Thank you for your review, ' + name + '!');
+        }
+    </script>
+
+
+    <!-- Add to Cart Notification -->
+    <div id="cart-notification" class="cart-notification">
+        <div class="cart-notification-content">
+            <span class="cart-notification-text" id="cart-notification-text">• 1X Product Added to your Cart</span>
+            <button class="cart-notification-view-cart">View Cart</button>
+        </div>
+        <button class="cart-notification-close" id="cart-notification-close" aria-label="Close">
+            <svg width="100%" height="100%" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <filter id="crumpled-paper">
+                        <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="5" result="noise" />
+                        <feDiffuseLighting in="noise" lighting-color="#fff" surfaceScale="2" result="light">
+                            <feDistantLight azimuth="45" elevation="60" />
+                        </feDiffuseLighting>
+                        <feBlend mode="multiply" in="SourceGraphic" in2="light" />
+                    </filter>
+                    <filter id="brush-stroke-black">
+                        <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="3" result="noise" />
+                        <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G" />
+                    </filter>
+                </defs>
+                <path d="M10 10 L90 5 L95 90 L5 95 Z" fill="#f4f4f4" filter="url(#crumpled-paper)" />
+                <path d="M25 25 C 35 30, 65 70, 75 75 M75 25 C 65 30, 35 70, 25 75" stroke="#111" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" style="filter: url(#brush-stroke-black);" />
+            </svg>
+        </button>
+    </div>
+
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const notification = document.getElementById('cart-notification');
+            const notifText = document.getElementById('cart-notification-text');
+            const closeBtn = document.getElementById('cart-notification-close');
+            let hideTimeout;
+
+            function showNotification(productName, qty) {
+                notifText.innerText = `• ${qty}X ${productName} Added to your Cart`;
+                notification.classList.remove('show');
+                void notification.offsetWidth;
+                notification.classList.add('show');
+                clearTimeout(hideTimeout);
+                hideTimeout = setTimeout(() => { notification.classList.remove('show'); }, 2000);
+            }
+
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => { notification.classList.remove('show'); clearTimeout(hideTimeout); });
+            }
+
+            const mainAddBtn = document.getElementById('addToCartBtn');
+            if (mainAddBtn) {
+                mainAddBtn.addEventListener('click', () => {
+                    const qtyInput = document.getElementById('qtyVal');
+                    const qty = qtyInput ? parseInt(qtyInput.value) : 1;
+                    const nameEl = document.querySelector('.product-name');
+                    const name = nameEl ? nameEl.innerText.trim() : 'Product';
+                    const priceEl = document.querySelector('.product-price');
+                    let price = 0;
+                    if(priceEl) price = parseInt(priceEl.innerText.replace(/[^0-9]/g, ''));
+                    const imgEl = document.querySelector('.card-crop');
+                    let image = 'https://i.imgur.com/BSt2lzH.png';
+                    if (imgEl && window.getComputedStyle(imgEl).backgroundImage !== 'none') {
+                        image = window.getComputedStyle(imgEl).backgroundImage.slice(4, -1).replace(/"/g, "");
+                    }
+                    if (typeof addToCart === 'function') { addToCart({ name, price, qty, image }); }
+                    showNotification(name, qty);
+                });
+            }
+
+            const cardAddBtns = document.querySelectorAll('.custom-card-cart-btn');
+            cardAddBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const card = btn.closest('.custom-card');
+                    const nameEl = card ? card.querySelector('.custom-card-name') : null;
+                    const name = nameEl ? nameEl.innerText.trim() : 'Product';
+                    const priceEl = card ? card.querySelector('.custom-card-price') : null;
+                    let price = 0;
+                    if(priceEl) price = parseInt(priceEl.innerText.replace(/[^0-9]/g, ''));
+                    const imgEl = card ? card.querySelector('.custom-card-img') : null;
+                    let image = 'https://i.imgur.com/BSt2lzH.png';
+                    if (imgEl && imgEl.src) image = imgEl.src;
+                    if (typeof addToCart === 'function') { addToCart({ name, price, qty: 1, image }); }
+                    showNotification(name, 1);
+                });
+            });
+
+            const viewCartBtn = document.querySelector('.cart-notification-view-cart');
+            if(viewCartBtn) {
+                viewCartBtn.addEventListener('click', () => { window.location.href = 'cart.html'; });
+            }
+        });
+    </script>
+
+
+    
+
+    <script src="cart.js"></script>
+
+    <!-- Mobile Sidebar -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+    <aside class="mobile-sidebar" id="mobile-sidebar">
+        <button class="mobile-sidebar-close" id="sidebar-close" aria-label="Close Navigation">
+            <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M25 25 C 35 30, 65 70, 75 75 M75 25 C 65 30, 35 70, 25 75" stroke="#ff1a1a" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" style="filter: url(#brush-texture);" />
+                <defs>
+                    <filter id="brush-texture">
+                        <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="3" result="noise" />
+                        <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G" />
+                    </filter>
+                </defs>
+            </svg>
+        </button>
+        <nav class="mobile-sidebar-nav">
+            <a href="index.html" class="mobile-nav-link">Home</a>
+            <a href="shop.html" class="mobile-nav-link">Shop</a>
+            <a href="cart.html" class="mobile-nav-link">Cart</a>
+            <a href="about.html" class="mobile-nav-link">About Us</a>
+            <a href="contacts.html" class="mobile-nav-link">Contacts</a>
+        </nav>
+    </aside>
+
+    <script>
+        const mobileToggle = document.getElementById('mobile-nav-toggle');
+        const sidebar = document.getElementById('mobile-sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        const closeBtn = document.getElementById('sidebar-close');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('visible');
+            document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
+        }
+
+        if (mobileToggle) mobileToggle.addEventListener('click', toggleSidebar);
+        if (closeBtn) closeBtn.addEventListener('click', toggleSidebar);
+        if (overlay) overlay.addEventListener('click', toggleSidebar);
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (sidebar.classList.contains('open')) toggleSidebar();
+            });
+        });
+
+        
+    </script>
+
+    <!-- Footer Section -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <!-- Left: Logo & About -->
+            <div class="footer-left">
+                <img src="https://i.imgur.com/kB9G3e9.png" alt="Food Hustle Logo" class="footer-logo">
+                <h2 class="footer-about-title">About Us</h2>
+                <div class="footer-about-text">
+                    Join us at Food Hustle,<br>
+                    where tradition meets taste,<br>
+                    and every meal is a celebration of local flavor!
+                </div>
+            </div>
+
+            <!-- Middle: Links Columns -->
+            <div class="footer-links-container">
+                <div class="footer-links-col">
+                    <a href="index.html" class="footer-link">Home</a>
+                    <a href="shop.html" class="footer-link">Shop</a>
+                    <a href="cart.html" class="footer-link">Cart</a>
+                    <a href="#" class="footer-link">My account</a>
+                    <a href="contacts.html" class="footer-link">Contact us</a>
+                </div>
+                <div class="footer-links-col">
+                    <a href="about.html" class="footer-link">About Us</a>
+                    <a href="#" class="footer-link">Shipping Policy</a>
+                    <a href="#" class="footer-link">Refund Policy</a>
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Delivery Info</a>
+                </div>
+            </div>
+
+                            <!-- Right: Business Info & Newsletter -->
+                <div class="footer-right">
+                    <!-- Newsletter Form -->
+                    <div class="footer-newsletter">
+                        <div class="newsletter-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00c853"
+                                stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                <polyline points="22,6 12,13 2,6" />
+                            </svg>
+                        </div>
+                        <input type="email" class="newsletter-input" placeholder="Your Email">
+                        <button class="newsletter-btn">Subscribe</button>
+                    </div>
+
+                    <!-- Social Media Links -->
+                    <div class="footer-social-links">
+                        <a href="https://www.facebook.com/profile.php?id=61587919453376&rdid=Boj2LHftZtfuxeEz" class="social-icon-link" target="_blank">
+                            <i class="fa-brands fa-facebook" style="color: rgb(69, 12, 233);"></i>
+                        </a>
+                        <a href="https://x.com/IAdhum29444" class="social-icon-link" target="_blank">
+                            <i class="fa-brands fa-square-x-twitter" style="color: rgb(6, 12, 16);"></i>
+                        </a>
+                        <a href="https://Wa.me/+8801817929358" class="social-icon-link" target="_blank">
+                            <i class="fa-brands fa-square-whatsapp" style="color: hsl(136, 74%, 52%);"></i>
+                        </a>
+                    </div>
+
+                    <!-- Payment Accept Section -->
+                    <div class="footer-payment-section">
+                        <h3 class="payment-title">Payment Accept</h3>
+                        <div class="payment-logos">
+                            <img src="https://i.imgur.com/78kr3Ek.png" alt="bKash" class="payment-logo-img">
+                            <img src="https://i.imgur.com/i3sv8EW.png" alt="Rocket" class="payment-logo-img">
+                            <img src="https://i.imgur.com/YyPMeYi.png" alt="Nagad" class="payment-logo-img">
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </footer>
+
+</body>
+</html>

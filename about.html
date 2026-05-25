@@ -1,0 +1,421 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Food Lab</title>
+    <meta name="description"
+        content="Learn about Food Lab â€“ One of the Largest Highway Restaurants in Bangladesh, situated in Dhankundi, Sherpur.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* ========== BREADCRUMB ========== */
+        .breadcrumb-bar {
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 14px 40px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            z-index: 5;
+            transition: padding 0.4s ease;
+        }
+
+        .breadcrumb-bar a {
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .breadcrumb-bar a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb-bar .sep {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .breadcrumb-bar .current {
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        /* About Us Pill Title specific styles */
+        .about-heading-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: -35px;
+            margin-bottom: 0;
+            position: relative;
+            z-index: 1;
+            transition: margin-top 0.4s ease;
+        }
+
+        .scrolled .about-heading-wrapper {
+            margin-top: -25px;
+        }
+
+        .about-heading-pill {
+            background: #fff;
+            border-radius: 0 0 30px 30px;
+            padding: 40px 100px 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: padding 0.4s ease, border-radius 0.4s ease;
+        }
+
+        .scrolled .about-heading-pill {
+            padding: 25px 80px 10px;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .about-heading-pill h1 {
+            font-family: 'Norwester', 'Impact', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 400;
+            color: #111;
+            letter-spacing: 0.02em;
+            text-transform: capitalize;
+            line-height: 1;
+            transition: font-size 0.4s ease;
+        }
+
+        .scrolled .about-heading-pill h1 {
+            font-size: 2.4rem;
+        }
+
+        /* ===== PAGE BODY ===== */
+        .page-body {
+            padding: 0 30px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Main White Card specific styles */
+        .about-main-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 60px 50px 50px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
+            position: relative;
+            z-index: 2;
+            margin-top: 40px;
+        }
+
+        .about-image-wrapper {
+            width: 85%;
+            margin: 0 auto 40px;
+        }
+
+        .about-image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .about-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 400;
+            line-height: 1.75;
+            color: #111;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5em;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .about-heading-wrapper {
+                margin-top: -28px;
+            }
+
+            .about-heading-pill {
+                padding: 30px 50px 10px;
+                border-radius: 0 0 20px 20px;
+            }
+
+            .about-heading-pill h1 {
+                font-size: 2.2rem;
+            }
+
+            .scrolled .about-heading-pill {
+                padding: 20px 40px 8px;
+            }
+
+            .scrolled .about-heading-pill h1 {
+                font-size: 1.8rem;
+            }
+
+            .scrolled .about-heading-wrapper {
+                margin-top: -20px;
+            }
+
+            .about-main-card {
+                padding: 40px 18px 30px;
+                border-radius: 20px !important;
+                margin-bottom: 60px !important;
+            }
+
+            .about-image-wrapper {
+                width: 100%;
+            }
+
+            .about-text {
+                font-size: 0.97rem;
+                text-align: justify;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sticky Top Section: Header + Breadcrumb + Title -->
+
+    <div class="sticky-top-part">
+        <header class="main-header">
+            <div class="header-content">
+                <button class="hamburger-btn" id="mobile-nav-toggle" aria-label="Open Navigation">
+                    <span></span><span></span><span></span>
+                </button>
+                <nav class="header-nav">
+                    <div class="nav-row">
+                        <a href="index.html" class="nav-link">Home</a>
+                        <a href="shop.html" class="nav-link">Shop</a>
+                        <a href="cart.html" class="nav-link">Cart</a>
+                    </div>
+                    <div class="nav-row">
+                        <a href="about.html" class="nav-link">About Us</a>
+                        <a href="contacts.html" class="nav-link">Contacts</a>
+                    </div>
+                </nav>
+                <div class="header-center">
+                    <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="logo" id="food-lab-logo">
+                    <div class="slogan-wrapper">
+                        <div class="slogan slogan-text-container" id="food-lab-slogan">
+                            <span class="slogan-part-1">GET A NEW EXPERIENCE OF</span>
+                            <span class="slogan-part-2">
+                                <span class="stagger-letter high">T</span>
+                                <span class="stagger-letter low">A</span>
+                                <span class="stagger-letter high">S</span>
+                                <span class="stagger-letter low">T</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-icons">
+                    <a href="#" class="header-icon-btn" aria-label="Search">
+                        <i class="fa-brands fa-searchengin" style="color: rgb(255, 255, 255);"></i>
+                    </a>
+                    <a href="#" class="header-icon-btn" aria-label="Profile">
+                        <i class="fa-solid fa-user-lock" style="color: rgb(255, 255, 255);"></i>
+                    </a>
+                    <a href="#" class="header-icon-btn" aria-label="Wishlist">
+                        <i class="fa-solid fa-heart" style="color: rgb(255, 255, 255);"></i>
+                    </a>
+                    <a href="cart.html" class="header-icon-btn" aria-label="Cart"
+                        style="position:relative; display:inline-block;">
+                        <i class="fa-solid fa-cart-shopping" style="color: rgb(255, 255, 255);"></i>
+                        <i class="fa-solid fa-circle-plus fa-2xs cart-plus-anim" style="color:#db3317;"></i>
+                        <span class="cart-badge telegraf-font" id="cartBadge"
+                            style="display:flex; position:absolute; top:-6px; right:-6px; background:#2a9d42; color:#fff; font-size:11px; font-family:'Canva Sans', sans-serif; font-weight:normal; width:18px; height:18px; border-radius:50%; align-items:center; justify-content:center; box-shadow:0 2px 4px rgba(0,0,0,0.2);">0</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <nav class="breadcrumb-bar">
+        <a href="index.html">Home</a>
+        <span class="sep">></span>
+        <span class="current">About Us</span>
+    </nav>
+
+    <!-- "About Us" Pill Heading -->
+    <div class="about-heading-wrapper">
+        <div class="about-heading-pill">
+            <h1>About Us</h1>
+        </div>
+    </div>
+
+    <!-- Page Body -->
+    <main class="page-body">
+
+        <!-- Main White Card -->
+        <div class="about-main-card">
+
+            <!-- House Image -->
+            <div class="about-image-wrapper">
+                <!-- PC image (wide) shown on desktop, mobile image shown on phones -->
+                <picture>
+                    <source media="(max-width: 767px)" srcset="https://i.imgur.com/ppdPq2l.png">
+                    <img src="https://i.imgur.com/EEI8Fmo.png" alt="Food Lab Restaurant Building">
+                </picture>
+            </div>
+
+            <!-- Text Content -->
+            <div class="about-text">
+                <p>
+                    <strong>Welcome to Food Lab â€“ One of the Largest Highway Restaurants in Bangladesh!</strong><br>
+                    Situated in Dhankundi, Sherpur, along the bustling Dhaka-Rangpur Highway, Food Lab has proudly
+                    served the people of Bogura and travelers from across the country for over 23 years. As a landmark
+                    destination, we offer a unique blend of delicious food, authentic products, and exceptional
+                    hospitality, making every stop at Food Lab a memorable one.
+                </p>
+                <p>
+                    At Food Lab, we take pride in our authentic homegrown products, which include our renowned
+                    mustard oil, ghee, chanachur, sweets, doi, yogurt, and laccha shemai. Each item is crafted with the
+                    finest ingredients, ensuring quality and flavor that our customers have trusted for over two
+                    decades. Whether you're looking for a hearty meal during your travels or traditional delicacies to
+                    take home, Food Village offers a welcoming experience that has made us a favorite stop on the
+                    highway.<br>
+                    Join us at Food Village, where tradition meets taste, and every meal is a celebration of local
+                    flavor!
+                </p>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Mobile Sidebar -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+    <aside class="mobile-sidebar" id="mobile-sidebar">
+        <button class="mobile-sidebar-close" id="sidebar-close" aria-label="Close Navigation">
+            <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M25 25 C 35 30, 65 70, 75 75 M75 25 C 65 30, 35 70, 25 75" stroke="#ff1a1a" stroke-width="12"
+                    stroke-linecap="round" stroke-linejoin="round" style="filter: url(#brush-texture);" />
+                <defs>
+                    <filter id="brush-texture">
+                        <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="3" result="noise" />
+                        <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R"
+                            yChannelSelector="G" />
+                    </filter>
+                </defs>
+            </svg>
+        </button>
+        <nav class="mobile-sidebar-nav">
+            <a href="index.html" class="mobile-nav-link">Home</a>
+            <a href="shop.html" class="mobile-nav-link">Shop</a>
+            <a href="cart.html" class="mobile-nav-link">Cart</a>
+            <a href="about.html" class="mobile-nav-link">About Us</a>
+            <a href="contacts.html" class="mobile-nav-link">Contacts</a>
+        </nav>
+    </aside>
+
+    <script src="cart.js"></script>
+    <script>
+        // Sidebar logic
+        const mobileToggle = document.getElementById('mobile-nav-toggle');
+        const sidebar = document.getElementById('mobile-sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        const closeBtn = document.getElementById('sidebar-close');
+
+        mobileToggle.addEventListener('click', () => {
+            sidebar.classList.add('open');
+            overlay.classList.add('visible');
+        });
+
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('visible');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('visible');
+        });
+    </script>
+
+
+    <!-- Footer Section -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <!-- Left: Logo & About -->
+            <div class="footer-left">
+                <img src="https://i.imgur.com/kB9G3e9.png" alt="Food Hustle Logo" class="footer-logo">
+                <h2 class="footer-about-title">About Us</h2>
+                <div class="footer-about-text">
+                    Join us at Food Hustle,<br>
+                    where tradition meets taste,<br>
+                    and every meal is a celebration of local flavor!
+                </div>
+            </div>
+
+            <!-- Middle: Links Columns -->
+            <div class="footer-links-container">
+                <div class="footer-links-col">
+                    <a href="index.html" class="footer-link">Home</a>
+                    <a href="shop.html" class="footer-link">Shop</a>
+                    <a href="cart.html" class="footer-link">Cart</a>
+                    <a href="#" class="footer-link">My account</a>
+                    <a href="contacts.html" class="footer-link">Contact us</a>
+                </div>
+                <div class="footer-links-col">
+                    <a href="about.html" class="footer-link">About Us</a>
+                    <a href="#" class="footer-link">Shipping Policy</a>
+                    <a href="#" class="footer-link">Refund Policy</a>
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Delivery Info</a>
+                </div>
+            </div>
+
+                            <!-- Right: Business Info & Newsletter -->
+                <div class="footer-right">
+                    <!-- Newsletter Form -->
+                    <div class="footer-newsletter">
+                        <div class="newsletter-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00c853"
+                                stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                <polyline points="22,6 12,13 2,6" />
+                            </svg>
+                        </div>
+                        <input type="email" class="newsletter-input" placeholder="Your Email">
+                        <button class="newsletter-btn">Subscribe</button>
+                    </div>
+
+                    <!-- Social Media Links -->
+                    <div class="footer-social-links">
+                        <a href="https://www.facebook.com/profile.php?id=61587919453376&rdid=Boj2LHftZtfuxeEz" class="social-icon-link" target="_blank">
+                            <i class="fa-brands fa-facebook" style="color: rgb(69, 12, 233);"></i>
+                        </a>
+                        <a href="https://x.com/IAdhum29444" class="social-icon-link" target="_blank">
+                            <i class="fa-brands fa-square-x-twitter" style="color: rgb(6, 12, 16);"></i>
+                        </a>
+                        <a href="https://Wa.me/+8801817929358" class="social-icon-link" target="_blank">
+                            <i class="fa-brands fa-square-whatsapp" style="color: hsl(136, 74%, 52%);"></i>
+                        </a>
+                    </div>
+
+                    <!-- Payment Accept Section -->
+                    <div class="footer-payment-section">
+                        <h3 class="payment-title">Payment Accept</h3>
+                        <div class="payment-logos">
+                            <img src="https://i.imgur.com/78kr3Ek.png" alt="bKash" class="payment-logo-img">
+                            <img src="https://i.imgur.com/i3sv8EW.png" alt="Rocket" class="payment-logo-img">
+                            <img src="https://i.imgur.com/YyPMeYi.png" alt="Nagad" class="payment-logo-img">
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,789 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts - Food Lab</title>
+    <meta name="description"
+        content="Get in touch with Food Lab. We are located in Dhankundi, Sherpur along the Dhaka-Rangpur Highway.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@400;500;600&family=Roboto:wght@400;700&family=Lato:wght@400;700&display=swap"
+        rel="stylesheet">
+    <!-- Norwester font via CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/norwester@5.0.0/index.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background: linear-gradient(135deg, #dde4e0 0%, #c8d5d0 100%);
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* ===== OVERLAY ===== */
+
+
+        .sidebar-overlay.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* ===== BREADCRUMB ===== */
+        .breadcrumb-bar {
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 14px 40px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            z-index: 5;
+            transition: padding 0.4s ease;
+        }
+
+        .scrolled .breadcrumb-bar {
+            padding: 8px 40px;
+        }
+
+        .breadcrumb-bar a {
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .breadcrumb-bar a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb-bar .sep {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .breadcrumb-bar .current {
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        /* ===== ABOUT US PILL TITLE ===== */
+        .about-heading-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: -35px;
+            margin-bottom: 0;
+            position: relative;
+            z-index: 1;
+            transition: margin-top 0.4s ease;
+        }
+
+        .scrolled .about-heading-wrapper {
+            margin-top: -25px;
+        }
+
+        .about-heading-pill {
+            background: #fff;
+            border-radius: 0 0 30px 30px;
+            padding: 40px 100px 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: padding 0.4s ease, border-radius 0.4s ease;
+        }
+
+        .scrolled .about-heading-pill {
+            padding: 25px 80px 10px;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .about-heading-pill h1 {
+            font-family: 'Norwester', 'Impact', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 400;
+            color: #111;
+            letter-spacing: 0.02em;
+            text-transform: capitalize;
+            line-height: 1;
+            transition: font-size 0.4s ease;
+        }
+
+        .scrolled .about-heading-pill h1 {
+            font-size: 2.4rem;
+        }
+
+        /* ===== PAGE BODY ===== */
+        .page-body {
+            padding: 0 30px 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* ===== CONTACT CARD ===== */
+        .contact-main-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
+            position: relative;
+            z-index: 2;
+            margin-top: 40px;
+            display: flex;
+            gap: 60px;
+        }
+
+        .contact-left {
+            flex: 1;
+        }
+
+        .contact-right {
+            flex: 1;
+        }
+
+        .section-title {
+            font-family: 'Roboto', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 400;
+            color: #111;
+            margin-bottom: 30px;
+        }
+
+        /* ===== FORM STYLES ===== */
+        .form-group {
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .form-group.message-group {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .form-label {
+            font-family: 'Lato', sans-serif;
+            font-size: 1.1rem;
+            color: #333;
+            min-width: 120px;
+        }
+
+        .form-input {
+            flex: 1;
+            background: #dbe4e0;
+            border: 1px solid #b0b0b0;
+            border-radius: 4px;
+            padding: 12px 15px;
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        .form-textarea {
+            width: 100%;
+            height: 150px;
+            background: #dbe4e0;
+            border: 1px solid #b0b0b0;
+            border-radius: 4px;
+            padding: 15px;
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            resize: none;
+        }
+
+        .btn-send {
+            background: #2a9d42;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 12px 30px;
+            font-family: 'Lato', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-send:hover {
+            background: #228136;
+            transform: translateY(-2px);
+        }
+
+        /* ===== INFO STYLES ===== */
+        .info-item {
+            margin-bottom: 35px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .info-content {
+            flex: 1;
+        }
+
+        .info-title {
+            font-family: 'Roboto', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 400;
+            color: #111;
+            margin-bottom: 12px;
+        }
+
+        .info-box {
+            background: #dbe4e0;
+            border: 1px solid #b0b0b0;
+            border-radius: 4px;
+            padding: 12px 15px;
+            font-family: 'Lato', sans-serif;
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: #111;
+        }
+
+        .icon-small-wrapper {
+            width: 45px;
+            height: 45px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-icons {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .social-icon-wrapper {
+            width: 55px;
+            /* Reduced to ~0.5x, slightly bigger than 45px small icons */
+            height: 55px;
+            transition: transform 0.2s;
+        }
+
+        .social-icon-wrapper:hover {
+            transform: scale(1.1);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .contact-main-card {
+                flex-direction: column;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+
+
+
+
+
+            .page-body {
+                padding: 0 12px 40px;
+            }
+
+            .contact-main-card {
+                padding: 30px 20px;
+                margin-top: 30px;
+                border-radius: 20px;
+                /* Ensure all corners are curved */
+                margin-bottom: 60px;
+                /* Added bottom margin */
+            }
+
+            .section-title,
+            .info-title {
+                font-size: 1.8rem;
+                text-align: center;
+            }
+
+            .form-group {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .info-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .icon-small {
+                margin-top: 0;
+            }
+
+            .social-icons {
+                justify-content: center;
+            }
+
+            .about-heading-wrapper {
+                margin-top: -28px;
+            }
+
+            .about-heading-pill {
+                padding: 30px 50px 10px;
+                border-radius: 0 0 20px 20px;
+            }
+
+            .about-heading-pill h1 {
+                font-size: 2.2rem;
+            }
+
+            .scrolled .about-heading-wrapper {
+                margin-top: -20px;
+            }
+
+            .scrolled .breadcrumb-bar {
+                padding: 6px 16px;
+            }
+
+            .scrolled .about-heading-pill {
+                padding: 20px 40px 8px;
+            }
+
+            .scrolled .about-heading-pill h1 {
+                font-size: 1.8rem;
+            }
+
+            /* Mobile view: Reorder so info is on top */
+            .contact-main-card {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .contact-right {
+                order: 1;
+            }
+
+            .contact-left {
+                order: 2;
+                margin-top: 40px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+    <!-- Sticky Top Section: Header + Breadcrumb + Title -->
+
+    <div class="sticky-top-part">
+        <header class="main-header">
+            <div class="header-content">
+                <button class="hamburger-btn" id="mobile-nav-toggle" aria-label="Open Navigation">
+                    <span></span><span></span><span></span>
+                </button>
+                <nav class="header-nav">
+                    <div class="nav-row">
+                        <a href="index.html" class="nav-link">Home</a>
+                        <a href="shop.html" class="nav-link">Shop</a>
+                        <a href="cart.html" class="nav-link">Cart</a>
+                    </div>
+                    <div class="nav-row">
+                        <a href="about.html" class="nav-link">About Us</a>
+                        <a href="contacts.html" class="nav-link">Contacts</a>
+                    </div>
+                </nav>
+                <div class="header-center">
+                    <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="logo" id="food-lab-logo">
+                    <div class="slogan-wrapper">
+                        <div class="slogan slogan-text-container" id="food-lab-slogan">
+                            <span class="slogan-part-1">GET A NEW EXPERIENCE OF</span>
+                            <span class="slogan-part-2">
+                                <span class="stagger-letter high">T</span>
+                                <span class="stagger-letter low">A</span>
+                                <span class="stagger-letter high">S</span>
+                                <span class="stagger-letter low">T</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-icons">
+                    <a href="#" class="header-icon-btn" aria-label="Search">
+                        <i class="fa-brands fa-searchengin" style="color: rgb(255, 255, 255);"></i>
+                    </a>
+                    <a href="#" class="header-icon-btn" aria-label="Profile">
+                        <i class="fa-solid fa-user-lock" style="color: rgb(255, 255, 255);"></i>
+                    </a>
+                    <a href="#" class="header-icon-btn" aria-label="Wishlist">
+                        <i class="fa-solid fa-heart" style="color: rgb(255, 255, 255);"></i>
+                    </a>
+                    <a href="cart.html" class="header-icon-btn" aria-label="Cart"
+                        style="position:relative; display:inline-block;">
+                        <i class="fa-solid fa-cart-shopping" style="color: rgb(255, 255, 255);"></i>
+                        <i class="fa-solid fa-circle-plus fa-2xs cart-plus-anim" style="color:#db3317;"></i>
+                        <span class="cart-badge telegraf-font" id="cartBadge"
+                            style="display:flex; position:absolute; top:-6px; right:-6px; background:#2a9d42; color:#fff; font-size:11px; font-family:'Canva Sans', sans-serif; font-weight:normal; width:18px; height:18px; border-radius:50%; align-items:center; justify-content:center; box-shadow:0 2px 4px rgba(0,0,0,0.2);">0</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <nav class="breadcrumb-bar">
+        <a href="index.html">Home</a>
+        <span class="sep">></span>
+        <span class="current">Contacts</span>
+    </nav>
+
+    <!-- "Contact Us" Pill Heading -->
+    <div class="about-heading-wrapper">
+        <div class="about-heading-pill">
+            <h1>Contact Us</h1>
+        </div>
+    </div>
+    </div>
+
+    <!-- Page Body -->
+    <main class="page-body">
+
+        <!-- Main Card -->
+        <div class="contact-main-card">
+
+            <!-- Left Side: Form -->
+            <div class="contact-left">
+                <h2 class="section-title">Send Questions //</h2>
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label class="form-label" for="name">Your Name:</label>
+                        <input type="text" id="name" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="email">Your Email:</label>
+                        <input type="email" id="email" class="form-input" required>
+                    </div>
+                    <div class="form-group message-group">
+                        <label class="form-label" for="message">Your Message: (optional)</label>
+                        <textarea id="message" class="form-textarea"></textarea>
+                    </div>
+                    <button type="submit" class="btn-send">Send Message</button>
+                </form>
+            </div>
+
+            <!-- Right Side: Info -->
+            <div class="contact-right">
+
+                <!-- Address -->
+                <div class="info-item">
+                    <div class="icon-small-wrapper">
+                        <!-- Icon 1: Lime-green location pin with clock -->
+                        <svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M22.5 5 C15.5 5 10 10.5 10 17.5 C10 27 22.5 40 22.5 40 C22.5 40 35 27 35 17.5 C35 10.5 29.5 5 22.5 5Z"
+                                fill="#7ED321" />
+                            <circle cx="22.5" cy="17.5" r="7" fill="white" />
+                            <circle cx="22.5" cy="17.5" r="5" stroke="#7ED321" stroke-width="1.5" />
+                            <path d="M22.5 14 V17.5 L25 20" stroke="#7ED321" stroke-width="1.5"
+                                stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <div class="info-content">
+                        <h3 class="info-title">Address //</h3>
+                        <div class="info-box">
+                            Dhankundi, Sherpur, Dhaka- Rangpur Highway, Sherpur, Bangladesh
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phones -->
+                <div class="info-item">
+                    <div class="icon-small-wrapper">
+                        <!-- Icon 2: Small solid green circle with white handset (flat design) -->
+                        <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="17.5" cy="17.5" r="15" fill="#2a9d42" />
+                            <path
+                                d="M22.5 21.2C22.5 21.6 22.1 22.4 21.1 22.4C19.8 22.4 17.5 20.3 15.1 17.9C12.7 15.5 10.6 13.2 10.6 11.9C10.6 10.9 11.4 10.5 11.8 10.5L12.7 10.5C13.1 10.5 13.5 10.8 13.7 11.2L14.7 13.2C14.9 13.6 14.8 14.1 14.5 14.4L13.8 15.2C14.6 16.6 15.9 17.9 17.3 18.7L18.1 18C18.4 17.7 18.9 17.6 19.3 17.8L21.3 18.8C21.7 19 22 19.4 22 19.8L22 20.7L22.5 21.2Z"
+                                fill="white" transform="rotate(15, 17.5, 17.5)" />
+                        </svg>
+                    </div>
+                    <div class="info-content">
+                        <h3 class="info-title">Phones //</h3>
+                        <div class="info-box">
+                            +88018179293**
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="info-item">
+                    <div class="icon-small-wrapper">
+                        <!-- Icon 3: Small solid green circle with white envelope -->
+                        <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="17.5" cy="17.5" r="15" fill="#2a9d42" />
+                            <path d="M10 12 L17.5 17 L25 12 M10 12 H25 V23 H10 Z" stroke="white" stroke-width="2"
+                                fill="none" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <div class="info-content">
+                        <h3 class="info-title">E-mail //</h3>
+                        <div class="info-box">
+                            ibrahimadhum505@gmail.com
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Follow Us -->
+                <div class="info-item">
+                    <div class="info-content">
+                        <h3 class="info-title">Follow Us //</h3>
+                        <div class="social-icons">
+                            <!-- Icon 4: Large solid green circle with white "f" -->
+                            <a href="https://www.facebook.com/profile.php?id=61587919453376&rdid=Boj2LHftZtfuxeEz" class="social-icon-wrapper" target="_blank">
+                                <svg width="55" height="55" viewBox="0 0 80 80" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="40" cy="40" r="38" fill="#2a9d42" />
+                                    <path
+                                        d="M48 40 H42 V60 H34 V40 H30 V32 H34 V28 C34 22 38 18 44 18 C47 18 49 18.5 50 19 V26 H45 C43 26 42 27 42 29 V32 H50 L48 40 Z"
+                                        fill="white" />
+                                </svg>
+                            </a>
+                            <!-- Icon 5: Large green outlined square for Instagram -->
+                            <a href="https://www.instagram.com/" class="social-icon-wrapper" target="_blank">
+                                <svg width="55" height="55" viewBox="0 0 80 80" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="12" y="12" width="56" height="56" rx="14" stroke="#2a9d42"
+                                        stroke-width="6" />
+                                    <circle cx="40" cy="40" r="14" stroke="#2a9d42" stroke-width="6" />
+                                    <circle cx="56" cy="24" r="3" fill="#2a9d42" />
+                                </svg>
+                            </a>
+                            <!-- Icon 6: Large vibrant green circular icon for WhatsApp with Radial Gradient and Long Shadow -->
+                            <a href="https://Wa.me/+8801817929358" class="social-icon-wrapper" target="_blank">
+                                <svg width="55" height="55" viewBox="0 0 80 80" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <radialGradient id="whatsapp_radial" cx="30%" cy="30%" r="70%" fx="30%"
+                                            fy="30%">
+                                            <stop offset="0%" stop-color="#40e060" />
+                                            <stop offset="100%" stop-color="#1e7e34" />
+                                        </radialGradient>
+                                        <filter id="longShadow">
+                                            <feOffset dx="1" dy="1" in="SourceAlpha" result="offset1" />
+                                            <feOffset dx="2" dy="2" in="SourceAlpha" result="offset2" />
+                                            <feOffset dx="3" dy="3" in="SourceAlpha" result="offset3" />
+                                            <feOffset dx="4" dy="4" in="SourceAlpha" result="offset4" />
+                                            <feOffset dx="5" dy="5" in="SourceAlpha" result="offset5" />
+                                            <feOffset dx="6" dy="6" in="SourceAlpha" result="offset6" />
+                                            <feOffset dx="7" dy="7" in="SourceAlpha" result="offset7" />
+                                            <feOffset dx="8" dy="8" in="SourceAlpha" result="offset8" />
+                                            <feOffset dx="9" dy="9" in="SourceAlpha" result="offset9" />
+                                            <feOffset dx="10" dy="10" in="SourceAlpha" result="offset10" />
+                                            <feMerge>
+                                                <feMergeNode in="offset1" />
+                                                <feMergeNode in="offset2" />
+                                                <feMergeNode in="offset3" />
+                                                <feMergeNode in="offset4" />
+                                                <feMergeNode in="offset5" />
+                                                <feMergeNode in="offset6" />
+                                                <feMergeNode in="offset7" />
+                                                <feMergeNode in="offset8" />
+                                                <feMergeNode in="offset9" />
+                                                <feMergeNode in="offset10" />
+                                                <feMergeNode in="SourceGraphic" />
+                                            </feMerge>
+                                        </filter>
+                                        <clipPath id="circleClip">
+                                            <circle cx="40" cy="40" r="38" />
+                                        </clipPath>
+                                    </defs>
+                                    <circle cx="40" cy="40" r="38" fill="url(#whatsapp_radial)" />
+                                    <!-- Long Shadow Layer -->
+                                    <g clip-path="url(#circleClip)">
+                                        <g opacity="0.2">
+                                            <path
+                                                d="M58 38 C58 48 50 56 40 56 C36 56 33 55 30 54 L20 58 L24 48 C22 45 22 41 22 38 C22 28 30 20 40 20 C50 20 58 28 58 38 Z"
+                                                fill="black" transform="translate(1,1)" />
+                                            <path
+                                                d="M58 38 C58 48 50 56 40 56 C36 56 33 55 30 54 L20 58 L24 48 C22 45 22 41 22 38 C22 28 30 20 40 20 C50 20 58 28 58 38 Z"
+                                                fill="black" transform="translate(2,2)" />
+                                            <path
+                                                d="M58 38 C58 48 50 56 40 56 C36 56 33 55 30 54 L20 58 L24 48 C22 45 22 41 22 38 C22 28 30 20 40 20 C50 20 58 28 58 38 Z"
+                                                fill="black" transform="translate(4,4)" />
+                                            <path
+                                                d="M58 38 C58 48 50 56 40 56 C36 56 33 55 30 54 L20 58 L24 48 C22 45 22 41 22 38 C22 28 30 20 40 20 C50 20 58 28 58 38 Z"
+                                                fill="black" transform="translate(6,6)" />
+                                            <path
+                                                d="M58 38 C58 48 50 56 40 56 C36 56 33 55 30 54 L20 58 L24 48 C22 45 22 41 22 38 C22 28 30 20 40 20 C50 20 58 28 58 38 Z"
+                                                fill="black" transform="translate(8,8)" />
+                                            <path
+                                                d="M58 38 C58 48 50 56 40 56 C36 56 33 55 30 54 L20 58 L24 48 C22 45 22 41 22 38 C22 28 30 20 40 20 C50 20 58 28 58 38 Z"
+                                                fill="black" transform="translate(10,10)" />
+                                            <path
+                                                d="M58 38 C58 48 50 56 40 56 C36 56 33 55 30 54 L20 58 L24 48 C22 45 22 41 22 38 C22 28 30 20 40 20 C50 20 58 28 58 38 Z"
+                                                fill="black" transform="translate(15,15)" />
+                                            <path
+                                                d="M58 38 C58 48 50 56 40 56 C36 56 33 55 30 54 L20 58 L24 48 C22 45 22 41 22 38 C22 28 30 20 40 20 C50 20 58 28 58 38 Z"
+                                                fill="black" transform="translate(20,20)" />
+                                        </g>
+                                        <path
+                                            d="M58 38 C58 48 50 56 40 56 C36 56 33 55 30 54 L20 58 L24 48 C22 45 22 41 22 38 C22 28 30 20 40 20 C50 20 58 28 58 38 Z"
+                                            fill="white" />
+                                        <path
+                                            d="M48 45 C48 46 47 47 45 47 C42 47 38 43 35 40 C32 37 28 33 28 30 C28 28 29 27 30 27 L32 27 L34 32 L32 33 C33 35 35 37 37 38 C38 40 40 41 42 42 L43 40 L48 42 L48 45 Z"
+                                            fill="#2a9d42" />
+                                    </g>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Mobile Sidebar -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+    <aside class="mobile-sidebar" id="mobile-sidebar">
+        <button class="mobile-sidebar-close" id="sidebar-close" aria-label="Close Navigation">
+            <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M25 25 C 35 30, 65 70, 75 75 M75 25 C 65 30, 35 70, 25 75" stroke="#ff1a1a" stroke-width="12"
+                    stroke-linecap="round" stroke-linejoin="round" style="filter: url(#brush-texture);" />
+                <defs>
+                    <filter id="brush-texture">
+                        <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="3" result="noise" />
+                        <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R"
+                            yChannelSelector="G" />
+                    </filter>
+                </defs>
+            </svg>
+        </button>
+        <nav class="mobile-sidebar-nav">
+            <a href="index.html" class="mobile-nav-link">Home</a>
+            <a href="shop.html" class="mobile-nav-link">Shop</a>
+            <a href="cart.html" class="mobile-nav-link">Cart</a>
+            <a href="about.html" class="mobile-nav-link">About Us</a>
+            <a href="contacts.html" class="mobile-nav-link">Contacts</a>
+        </nav>
+    </aside>
+
+
+
+    <script src="cart.js"></script>
+    <script>
+        // Sidebar logic
+        const mobileToggle = document.getElementById('mobile-nav-toggle');
+        const sidebar = document.getElementById('mobile-sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        const closeBtn = document.getElementById('sidebar-close');
+        mobileToggle.addEventListener('click', () => {
+            sidebar.classList.add('open');
+            overlay.classList.add('visible');
+        });
+
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('visible');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('visible');
+        });
+
+        // Form Submission
+        document.getElementById('contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Message sent successfully!');
+            e.target.reset();
+        });
+    </script>
+
+
+    <!-- Footer Section -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <!-- Left: Logo & About -->
+            <div class="footer-left">
+                <img src="https://i.imgur.com/kB9G3e9.png" alt="Food Hustle Logo" class="footer-logo">
+                <h2 class="footer-about-title">About Us</h2>
+                <div class="footer-about-text">
+                    Join us at Food Hustle,<br>
+                    where tradition meets taste,<br>
+                    and every meal is a celebration of local flavor!
+                </div>
+            </div>
+
+            <!-- Middle: Links Columns -->
+            <div class="footer-links-container">
+                <div class="footer-links-col">
+                    <a href="index.html" class="footer-link">Home</a>
+                    <a href="shop.html" class="footer-link">Shop</a>
+                    <a href="cart.html" class="footer-link">Cart</a>
+                    <a href="#" class="footer-link">My account</a>
+                    <a href="contacts.html" class="footer-link">Contact us</a>
+                </div>
+                <div class="footer-links-col">
+                    <a href="about.html" class="footer-link">About Us</a>
+                    <a href="#" class="footer-link">Shipping Policy</a>
+                    <a href="#" class="footer-link">Refund Policy</a>
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Delivery Info</a>
+                </div>
+            </div>
+
+                            <!-- Right: Business Info & Newsletter -->
+                <div class="footer-right">
+                    <!-- Newsletter Form -->
+                    <div class="footer-newsletter">
+                        <div class="newsletter-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00c853"
+                                stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                <polyline points="22,6 12,13 2,6" />
+                            </svg>
+                        </div>
+                        <input type="email" class="newsletter-input" placeholder="Your Email">
+                        <button class="newsletter-btn">Subscribe</button>
+                    </div>
+
+                    <!-- Social Media Links -->
+                    <div class="footer-social-links">
+                        <a href="https://www.facebook.com/profile.php?id=61587919453376&rdid=Boj2LHftZtfuxeEz" class="social-icon-link" target="_blank">
+                            <i class="fa-brands fa-facebook" style="color: rgb(69, 12, 233);"></i>
+                        </a>
+                        <a href="https://x.com/IAdhum29444" class="social-icon-link" target="_blank">
+                            <i class="fa-brands fa-square-x-twitter" style="color: rgb(6, 12, 16);"></i>
+                        </a>
+                        <a href="https://Wa.me/+8801817929358" class="social-icon-link" target="_blank">
+                            <i class="fa-brands fa-square-whatsapp" style="color: hsl(136, 74%, 52%);"></i>
+                        </a>
+                    </div>
+
+                    <!-- Payment Accept Section -->
+                    <div class="footer-payment-section">
+                        <h3 class="payment-title">Payment Accept</h3>
+                        <div class="payment-logos">
+                            <img src="https://i.imgur.com/78kr3Ek.png" alt="bKash" class="payment-logo-img">
+                            <img src="https://i.imgur.com/i3sv8EW.png" alt="Rocket" class="payment-logo-img">
+                            <img src="https://i.imgur.com/YyPMeYi.png" alt="Nagad" class="payment-logo-img">
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

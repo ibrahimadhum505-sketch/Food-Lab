@@ -1,0 +1,606 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - Food Lab</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #e8ecf1;
+            font-family: 'Lato', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .telegraf-font {
+            font-family: 'Telegraf', sans-serif;
+            font-weight: 400;
+        }
+
+        /* ===== BREADCRUMB NAV ===== */
+        .breadcrumb-bar {
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 14px 40px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .breadcrumb-bar a {
+            font-size: 1rem;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .breadcrumb-bar a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb-bar .sep {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .breadcrumb-bar .current {
+            font-size: 1rem;
+            color: #2a9d42;
+            font-weight: 700;
+        }
+
+        /* ========== CART PAGE WRAPPER ========== */
+        .cart-page-wrapper {
+            background-color: #fff;
+            border-radius: 20px;
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 40px;
+            position: relative;
+        }
+
+        .cart-page-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s;
+            width: 40px;
+            height: 40px;
+        }
+
+        .cart-page-close:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-page-left {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .cart-page-right {
+            border-left: 2px dashed #333;
+            padding-left: 40px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-headers {
+            display: grid;
+            grid-template-columns: 3fr 1fr 1fr;
+            align-items: center;
+            border-bottom: 1px dashed #333;
+            padding-bottom: 10px;
+            font-family: 'Lato', sans-serif;
+            font-weight: 900;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            color: #111;
+        }
+
+        .cart-item {
+            display: grid;
+            grid-template-columns: 3fr 1fr 1fr;
+            align-items: center;
+            border-bottom: 1px dashed #333;
+            padding: 20px 0;
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+        }
+
+        .cart-item-product {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cart-item-img-wrap {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+
+        .cart-item-logo {
+            position: absolute;
+            top: -15px;
+            left: -10px;
+            width: 40px;
+            z-index: 2;
+        }
+
+        .cart-item-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .cart-item-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-item-name {
+            font-weight: 700;
+            color: #111;
+        }
+
+        .cart-item-price {
+            font-size: 1.5rem;
+            color: #2a9d42;
+        }
+
+        .cart-qty-control {
+            display: flex;
+            align-items: center;
+            border: 2px solid #333;
+            border-radius: 25px;
+            padding: 4px 15px;
+            width: fit-content;
+            margin: 0 auto;
+        }
+
+        .cart-qty-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0 10px;
+            font-family: 'Lato', sans-serif;
+            font-weight: 900;
+        }
+
+        .cart-qty-val {
+            margin: 0 15px;
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            font-weight: 700;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .cart-subtotal-val {
+            font-size: 1.8rem;
+            text-align: right;
+            color: #2a9d42;
+            font-weight: 700;
+        }
+
+        /* Right Summary Styles */
+        .cart-summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Caveat', cursive;
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            border-bottom: 1px dashed #333;
+            padding-bottom: 10px;
+            color: #000;
+        }
+
+        .cart-summary-ship {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            border-bottom: 1px dashed #333;
+            padding-bottom: 25px;
+            margin-bottom: 25px;
+        }
+
+        .cart-ship-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-ship-label {
+            color: #ff3b30;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .cart-summary-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            font-family: 'Caveat', cursive;
+            font-size: 2.8rem;
+            color: #ff3b30;
+            margin-bottom: 35px;
+        }
+
+        .cart-total-details {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .cart-total-calc {
+            font-size: 1.3rem;
+            color: #2a9d42;
+            margin-bottom: -5px;
+        }
+
+        .cart-checkout-btn {
+            background-color: #ffb6c1;
+            color: #fff !important;
+            border: none;
+            border-radius: 35px;
+            padding: 18px 0;
+            font-family: 'Lato', sans-serif;
+            font-weight: 900;
+            font-size: 1.6rem;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: transform 0.2s, opacity 0.2s;
+            width: 100%;
+            display: block;
+            box-shadow: 0 4px 15px rgba(255, 182, 193, 0.4);
+        }
+
+        .cart-checkout-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .taka-sign {
+            font-family: sans-serif;
+            font-weight: 400;
+        }
+
+        @media (max-width: 900px) {
+            .cart-page-wrapper {
+                grid-template-columns: 1fr;
+                padding: 25px;
+                margin: 20px 20px 60px; /* Added bottom margin */
+                border-radius: 20px; /* Ensure all corners are curved */
+            }
+            .cart-page-right {
+                border-left: none;
+                border-top: 2px dashed #333;
+                padding-left: 0;
+                padding-top: 40px;
+            }
+            .cart-headers { display: none; }
+            .cart-item {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                text-align: center;
+            }
+            .cart-item-product { justify-content: center; }
+            .cart-subtotal-val { text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header (Same as index.html) -->
+    
+    <div class="sticky-top-part">
+        <header class="main-header">
+            <div class="header-content">
+                <button class="hamburger-btn" id="mobile-nav-toggle" aria-label="Open Navigation">
+                    <span></span><span></span><span></span>
+                </button>
+                <nav class="header-nav">
+                    <div class="nav-row">
+                        <a href="index.html" class="nav-link">Home</a>
+                        <a href="shop.html" class="nav-link">Shop</a>
+                        <a href="cart.html" class="nav-link">Cart</a>
+                    </div>
+                    <div class="nav-row">
+                        <a href="about.html" class="nav-link">About Us</a>
+                        <a href="contacts.html" class="nav-link">Contacts</a>
+                    </div>
+                </nav>
+                <div class="header-center">
+                    <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="logo" id="food-lab-logo">
+                    <div class="slogan-wrapper">
+                        <div class="slogan slogan-text-container" id="food-lab-slogan">
+                            <span class="slogan-part-1">GET A NEW EXPERIENCE OF</span>
+                            <span class="slogan-part-2">
+                                <span class="stagger-letter high">T</span>
+                                <span class="stagger-letter low">A</span>
+                                <span class="stagger-letter high">S</span>
+                                <span class="stagger-letter low">T</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-icons">
+                    <a href="#" class="header-icon-btn" aria-label="Search">
+                        <i class="fa-brands fa-searchengin" style="color: rgb(255, 255, 255);"></i>
+                    </a>
+                    <a href="#" class="header-icon-btn" aria-label="Profile">
+                        <i class="fa-solid fa-user-lock" style="color: rgb(255, 255, 255);"></i>
+                    </a>
+                    <a href="#" class="header-icon-btn" aria-label="Wishlist">
+                        <i class="fa-solid fa-heart" style="color: rgb(255, 255, 255);"></i>
+                    </a>
+                    <a href="cart.html" class="header-icon-btn" aria-label="Cart" style="position:relative; display:inline-block;">
+                        <i class="fa-solid fa-cart-shopping" style="color: rgb(255, 255, 255);"></i>
+                        <i class="fa-solid fa-circle-plus fa-2xs cart-plus-anim" style="color:#db3317;"></i>
+                        <span class="cart-badge telegraf-font" id="cartBadge" style="display:flex; position:absolute; top:-6px; right:-6px; background:#2a9d42; color:#fff; font-size:11px; font-family:'Canva Sans', sans-serif; font-weight:normal; width:18px; height:18px; border-radius:50%; align-items:center; justify-content:center; box-shadow:0 2px 4px rgba(0,0,0,0.2);">0</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <!-- Mobile Sidebar -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+    <aside class="mobile-sidebar" id="mobile-sidebar">
+        <button class="mobile-sidebar-close" id="sidebar-close" aria-label="Close Navigation">
+            <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M25 25 C 35 30, 65 70, 75 75 M75 25 C 65 30, 35 70, 25 75" stroke="#ff1a1a" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" style="filter: url(#brush-texture);" />
+                <defs>
+                    <filter id="brush-texture">
+                        <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="3" result="noise" />
+                        <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G" />
+                    </filter>
+                </defs>
+            </svg>
+        </button>
+        <nav class="mobile-sidebar-nav">
+            <a href="index.html" class="mobile-nav-link">Home</a>
+            <a href="shop.html" class="mobile-nav-link">Shop</a>
+            <a href="cart.html" class="mobile-nav-link">Cart</a>
+            <a href="about.html" class="mobile-nav-link">About Us</a>
+            <a href="contacts.html" class="mobile-nav-link">Contacts</a>
+        </nav>
+    </aside>
+
+    <nav class="breadcrumb-bar">
+        <a href="index.html">Home</a>
+        <span class="sep">></span>
+        <span class="current">Cart</span>
+    </nav>
+
+    <div class="cart-page-wrapper">
+        <button class="cart-page-close" onclick="window.history.back()" aria-label="Close">
+            <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M25 25 C 35 30, 65 70, 75 75 M75 25 C 65 30, 35 70, 25 75" stroke="#111" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </button>
+
+        <div class="cart-page-left">
+            <div class="cart-headers">
+                <div>PRODUCTS</div>
+                <div style="text-align:center;">QUANTITY</div>
+                <div style="text-align:right;">SUB-TOTAL</div>
+            </div>
+
+            <div id="cart-items-container">
+                <!-- Items will be injected here via JS -->
+            </div>
+        </div>
+
+        <div class="cart-page-right">
+            <div class="cart-summary-row">
+                <span>Sub-total</span>
+                <span>=</span>
+                <span style="color: #2a9d42;" id="cart-subtotal"><span class="taka-sign">৳</span> 0</span>
+            </div>
+
+            <div class="cart-summary-ship">
+                <span class="cart-ship-label">Shipment :</span>
+                <div class="cart-ship-row">
+                    <label style="display:flex; align-items:center; gap:10px; cursor:pointer;">
+                        <input type="radio" checked style="width:18px; height:18px; accent-color: #000;">
+                        <span>Flat rate</span>
+                    </label>
+                    <span style="color: #2a9d42;"><span class="taka-sign telegraf-font">৳</span> <span class="telegraf-font">80</span></span>
+                </div>
+                <div style="margin-left: 28px; font-size: 1.4rem; font-weight:400; font-family:'Lato', sans-serif;">Shipping From Sylhet</div>
+            </div>
+
+            <div class="cart-summary-total">
+                <span style="font-size: 2.8rem; color:#111;">Total</span>
+                <span>=</span>
+                <div class="cart-total-details">
+                    <span class="cart-total-calc telegraf-font" id="cart-total-calc"><span class="taka-sign">৳</span> (0 + 80)</span>
+                    <span style="font-size: 3rem; color: #2a9d42; font-weight:700;" id="cart-total-final" class="telegraf-font"><span class="taka-sign">৳</span> 80</span>
+                </div>
+            </div>
+
+            <a href="checkout.html" class="cart-checkout-btn">CHECKOUT</a>
+        </div>
+    </div>
+
+    
+    
+<script src="cart.js"></script>
+    <script>
+        function renderCartPage() {
+            const container = document.getElementById('cart-items-container');
+            if (!container) return;
+            
+            const cart = getCart();
+
+            if (cart.length === 0) {
+                container.innerHTML = '<div style="text-align:center; font-family:Caveat, cursive; font-size:2.5rem; padding: 60px; color:#555;">Your cart is empty.</div>';
+                document.getElementById('cart-subtotal').innerHTML = '<span class="taka-sign telegraf-font">৳</span> <span class="telegraf-font">0</span>';
+                document.getElementById('cart-total-calc').innerHTML = '<span class="taka-sign telegraf-font">৳</span> <span class="telegraf-font">(0 + 80)</span>';
+                document.getElementById('cart-total-final').innerHTML = '<span class="taka-sign telegraf-font">৳</span> <span class="telegraf-font">80</span>';
+                return;
+            }
+
+            let html = '';
+            let subtotal = 0;
+
+            cart.forEach(item => {
+                const itemTotal = item.price * item.qty;
+                subtotal += itemTotal;
+
+                html += `
+                <div class="cart-item">
+                    <div class="cart-item-product">
+                        <div class="cart-item-img-wrap">
+                            <img src="https://i.imgur.com/BSt2lzH.png" alt="Logo" class="cart-item-logo">
+                            <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                        </div>
+                        <div class="cart-item-details">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price telegraf-font"><span class="taka-sign">৳</span> ${item.price}</div>
+                        </div>
+                    </div>
+                    
+                    <div style="display:flex; justify-content:center;">
+                        <div class="cart-qty-control">
+                            <button class="cart-qty-btn" onclick="updateItemQuantity('${item.name.replace(/'/g, "\\'")}', -1)">−</button>
+                            <span class="cart-qty-val telegraf-font">${item.qty}</span>
+                            <button class="cart-qty-btn" onclick="updateItemQuantity('${item.name.replace(/'/g, "\\'")}', 1)">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="cart-subtotal-val telegraf-font"><span class="taka-sign">৳</span> ${itemTotal}</div>
+                </div>
+                `;
+            });
+
+            container.innerHTML = html;
+
+            document.getElementById('cart-subtotal').innerHTML = `<span class="taka-sign telegraf-font">৳</span> <span class="telegraf-font">${subtotal}</span>`;
+            document.getElementById('cart-total-calc').innerHTML = `<span class="taka-sign telegraf-font">৳</span> <span class="telegraf-font">(${subtotal} + 80)</span>`;
+            document.getElementById('cart-total-final').innerHTML = `<span class="taka-sign telegraf-font">৳</span> <span class="telegraf-font">${subtotal + 80}</span>`;
+        }
+
+        document.addEventListener('DOMContentLoaded', renderCartPage);
+
+        // Override updateItemQuantity to also re-render the page
+        const originalUpdateItemQuantity = updateItemQuantity;
+        updateItemQuantity = function(name, change) {
+            originalUpdateItemQuantity(name, change);
+            renderCartPage();
+        };
+
+        // Sidebar logic
+        const mobileToggle = document.getElementById('mobile-nav-toggle');
+        const sidebar = document.getElementById('mobile-sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        const closeBtn = document.getElementById('sidebar-close');
+
+        mobileToggle.addEventListener('click', () => {
+            sidebar.classList.add('open');
+            overlay.classList.add('visible');
+        });
+
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('visible');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('visible');
+        });
+    </script>
+
+    <!-- Footer Section -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <!-- Left: Logo & About -->
+            <div class="footer-left">
+                <img src="https://i.imgur.com/kB9G3e9.png" alt="Food Hustle Logo" class="footer-logo">
+                <h2 class="footer-about-title">About Us</h2>
+                <div class="footer-about-text">
+                    Join us at Food Hustle,<br>
+                    where tradition meets taste,<br>
+                    and every meal is a celebration of local flavor!
+                </div>
+            </div>
+
+            <!-- Middle: Links Columns -->
+            <div class="footer-links-container">
+                <div class="footer-links-col">
+                    <a href="index.html" class="footer-link">Home</a>
+                    <a href="shop.html" class="footer-link">Shop</a>
+                    <a href="cart.html" class="footer-link">Cart</a>
+                    <a href="#" class="footer-link">My account</a>
+                    <a href="contacts.html" class="footer-link">Contact us</a>
+                </div>
+                <div class="footer-links-col">
+                    <a href="about.html" class="footer-link">About Us</a>
+                    <a href="#" class="footer-link">Shipping Policy</a>
+                    <a href="#" class="footer-link">Refund Policy</a>
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Delivery Info</a>
+                </div>
+            </div>
+
+                            <!-- Right: Business Info & Newsletter -->
+                <div class="footer-right">
+                    <!-- Newsletter Form -->
+                    <div class="footer-newsletter">
+                        <div class="newsletter-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00c853"
+                                stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                <polyline points="22,6 12,13 2,6" />
+                            </svg>
+                        </div>
+                        <input type="email" class="newsletter-input" placeholder="Your Email">
+                        <button class="newsletter-btn">Subscribe</button>
+                    </div>
+
+                    <!-- Social Media Links -->
+                    <div class="footer-social-links">
+                        <a href="https://www.facebook.com/profile.php?id=61587919453376&rdid=Boj2LHftZtfuxeEz" class="social-icon-link" target="_blank">
+                            <i class="fa-brands fa-facebook" style="color: rgb(69, 12, 233);"></i>
+                        </a>
+                        <a href="https://x.com/IAdhum29444" class="social-icon-link" target="_blank">
+                            <i class="fa-brands fa-square-x-twitter" style="color: rgb(6, 12, 16);"></i>
+                        </a>
+                        <a href="https://Wa.me/+8801817929358" class="social-icon-link" target="_blank">
+                            <i class="fa-brands fa-square-whatsapp" style="color: hsl(136, 74%, 52%);"></i>
+                        </a>
+                    </div>
+
+                    <!-- Payment Accept Section -->
+                    <div class="footer-payment-section">
+                        <h3 class="payment-title">Payment Accept</h3>
+                        <div class="payment-logos">
+                            <img src="https://i.imgur.com/78kr3Ek.png" alt="bKash" class="payment-logo-img">
+                            <img src="https://i.imgur.com/i3sv8EW.png" alt="Rocket" class="payment-logo-img">
+                            <img src="https://i.imgur.com/YyPMeYi.png" alt="Nagad" class="payment-logo-img">
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </footer>
+
+</body>
+</html>

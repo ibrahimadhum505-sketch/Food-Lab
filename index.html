@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Lab - Get a new experience of taste</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* Remove extra space at the bottom of the Homepage */
+        .home-footer {
+            margin-bottom: 0 !important;
+            padding-bottom: 80px;
+        }
+
+        /* Kill the 60px gap between content and footer on homepage */
+        body>.page-body {
+            margin-bottom: 0 !important;
+            padding-bottom: 0 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sticky-top-part">
+        <header class="main-header">
+            <div class="header-content">
+
+                <!-- Hamburger Button (Mobile) -->
+                <button class="hamburger-btn" id="mobile-nav-toggle" aria-label="Open Navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <!-- Left: Navigation Links (Desktop) -->
+                <nav class="header-nav">
+                    <div class="nav-row">
+                        <a href="index.html" class="nav-link">Home</a>
+                        <a href="shop.html" class="nav-link">Shop</a>
+                        <a href="cart.html" class="nav-link">Cart</a>
+                    </div>
+                    <div class="nav-row">
+                        <a href="about.html" class="nav-link">About Us</a>
+                        <a href="contacts.html" class="nav-link">Contacts</a>
+                    </div>
+                </nav>
+
+                <!-- Center: Logo + Slogan -->
+                <div class="header-center">
+                    <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="logo" id="food-lab-logo">
+                    <div class="slogan-wrapper">
+                        <div class="slogan slogan-text-container" id="food-lab-slogan">
+                            <span class="slogan-part-1">GET A NEW EXPERIENCE OF</span>
+                            <span class="slogan-part-2">
+                                <span class="stagger-letter high">T</span>
+                                <span class="stagger-letter low">A</span>
+                                <span class="stagger-letter high">S</span>
+                                <span class="stagger-letter low">T</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Icon Buttons -->
+                <div class="header-icons">
+                    <!-- Globe/Search -->
+                    <a href="#" class="header-icon-btn" aria-label="Search">
+                        <i class="fa-brands fa-searchengin" style="color: rgb(255, 255, 255);"></i>
+                    </a>
+                    <!-- Profile -->
+                    <a href="#" class="header-icon-btn" aria-label="Profile">
+                        <i class="fa-solid fa-user-lock" style="color: rgb(255, 255, 255);"></i>
+                    </a>
+                    <!-- Heart / Wishlist -->
+                    <a href="#" class="header-icon-btn" aria-label="Wishlist">
+                        <i class="fa-solid fa-heart" style="color: rgb(255, 255, 255);"></i>
+                    </a>
+                    <!-- Shopping Cart -->
+                    <a href="cart.html" class="header-icon-btn" aria-label="Cart"
+                        style="position:relative; display:inline-block;">
+                        <i class="fa-solid fa-cart-shopping" style="color: rgb(255, 255, 255);"></i>
+                        <i class="fa-solid fa-circle-plus fa-2xs cart-plus-anim" style="color:#db3317;"></i>
+                        <span class="cart-badge telegraf-font"
+                            style="display:flex; position:absolute; top:-6px; right:-6px; background:#2a9d42; color:#fff; font-size:11px; font-family:'Canva Sans', sans-serif; font-weight:normal; width:18px; height:18px; border-radius:50%; align-items:center; justify-content:center; box-shadow:0 2px 4px rgba(0,0,0,0.2);">0</span>
+                    </a>
+                </div>
+
+            </div>
+        </header>
+    </div>
+
+    <!-- Hero Slider Section -->
+    <section class="slider-section">
+        <!-- Left Arrow -->
+        <button class="slider-arrow slider-arrow--left" id="prevBtn" onclick="changeSlide(-1)"
+            aria-label="Previous slide">
+            <span>&laquo;</span>
+        </button>
+
+        <!-- Slides Wrapper -->
+        <div class="slider-viewport">
+            <div class="slider-track" id="sliderTrack">
+
+                <!-- Slide 1 -->
+                <div class="slide active">
+                    <picture>
+                        <source media="(max-width: 767px)" srcset="https://i.imgur.com/WUZ3YyE.png">
+                        <img src="https://i.imgur.com/6XEuhMG.png"
+                            alt="Delight your loved ones with our sweet delicacies - Shop Now" class="slide-img">
+                    </picture>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="slide">
+                    <picture>
+                        <source media="(max-width: 767px)" srcset="https://i.imgur.com/MAemcf6.png">
+                        <img src="https://i.imgur.com/L8B14wF.png" alt="The true taste of Bogura - Shop Now"
+                            class="slide-img">
+                    </picture>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="slide">
+                    <picture>
+                        <source media="(max-width: 767px)" srcset="https://i.imgur.com/z3y45kZ.png">
+                        <img src="https://i.imgur.com/wxp0v4P.png"
+                            alt="A healthier alternative to traditional oil - Shop Now" class="slide-img">
+                    </picture>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Right Arrow -->
+        <button class="slider-arrow slider-arrow--right" id="nextBtn" onclick="changeSlide(1)" aria-label="Next slide">
+            <span>&raquo;</span>
+        </button>
+    </section>
+
+    <!-- Page Body -->
+    <main class="page-body">
+
+        <!-- Category Section -->
+        <section class="category-section">
+            <div class="category-container">
+
+                <!-- Category 1 -->
+                <div class="category-card" onclick="window.location.href='shop.html?cat=yogurts'">
+                    <div class="category-img-box">
+                        <img src="https://i.imgur.com/vcwb7PB.png" alt="Signature Yogurts" class="cat-thumb">
+                    </div>
+                    <p class="category-name">Signature Yogurts</p>
+                </div>
+
+                <!-- Category 2 -->
+                <div class="category-card" onclick="window.location.href='shop.html?cat=semai'">
+                    <div class="category-img-box">
+                        <img src="https://i.imgur.com/mFuMdck.png" alt="Semai Symphony" class="cat-thumb">
+                    </div>
+                    <p class="category-name">Semai Symphony</p>
+                </div>
+
+                <!-- Category 3 -->
+                <div class="category-card" onclick="window.location.href='shop.html?cat=sweets'">
+                    <div class="category-img-box">
+                        <img src="https://i.imgur.com/fD2tX8E.png" alt="Sweets and Desserts" class="cat-thumb">
+                    </div>
+                    <p class="category-name">Sweets & Desserts</p>
+                </div>
+
+                <!-- Category 4 -->
+                <div class="category-card" onclick="window.location.href='shop.html?cat=bakery'">
+                    <div class="category-img-box">
+                        <img src="https://i.imgur.com/ooh2fie.png" alt="Bakery Delight" class="cat-thumb">
+                    </div>
+                    <p class="category-name">Bakery Delights</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Showcase Section -->
+        <section class="showcase-section" id="signature-yogurts">
+            <h2 class="showcase-title reveal">Signature Yogurts</h2>
+
+            <div class="showcase-container">
+                <div class="showcase-carousel" id="productCarousel">
+
+                    <!-- Product 1: Cup doi -->
+                    <div class="showcase-item pos-inner-left"
+                        onclick="window.location.href='SIGNATURE_YOGURTS.html?id=cup-doi'" style="cursor:pointer;">
+                        <div class="custom-card">
+                            <div class="custom-card-body">
+                                <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="custom-card-logo">
+                                <div class="custom-card-img-wrapper">
+                                    <img src="https://i.imgur.com/ZxHcqMH.png" alt="Cup doi" class="custom-card-img">
+                                </div>
+                                <div class="custom-card-name">Cup doi</div>
+                            </div>
+                            <div class="custom-card-footer">
+                                <div class="custom-card-price">৳ 50</div>
+                                <div class="custom-card-cart-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="9" cy="21" r="2"></circle>
+                                        <circle cx="20" cy="21" r="2"></circle>
+                                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 2: Sada doi -->
+                    <div class="showcase-item pos-inner-right"
+                        onclick="window.location.href='SIGNATURE_YOGURTS.html?id=sada-doi'" style="cursor:pointer;">
+                        <div class="custom-card">
+                            <div class="custom-card-body">
+                                <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="custom-card-logo">
+                                <div class="custom-card-img-wrapper">
+                                    <img src="https://i.imgur.com/L6y2OGq.png" alt="Sada doi" class="custom-card-img">
+                                </div>
+                                <div class="custom-card-name">Sada doi</div>
+                            </div>
+                            <div class="custom-card-footer">
+                                <div class="custom-card-price">৳ 200</div>
+                                <div class="custom-card-cart-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="9" cy="21" r="2"></circle>
+                                        <circle cx="20" cy="21" r="2"></circle>
+                                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 3: Premium doi -->
+                    <div class="showcase-item pos-center"
+                        onclick="window.location.href='SIGNATURE_YOGURTS.html?id=premium-doi'" style="cursor:pointer;">
+                        <div class="custom-card">
+                            <div class="custom-card-body">
+                                <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="custom-card-logo">
+                                <div class="custom-card-img-wrapper">
+                                    <img src="https://i.imgur.com/6cVEtjY.png" alt="Premium doi" class="custom-card-img">
+                                </div>
+                                <div class="custom-card-name">Premium doi</div>
+                            </div>
+                            <div class="custom-card-footer">
+                                <div class="custom-card-price">৳ 350</div>
+                                <div class="custom-card-cart-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="9" cy="21" r="2"></circle>
+                                        <circle cx="20" cy="21" r="2"></circle>
+                                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 4: Malai doi -->
+                    <div class="showcase-item pos-outer-right"
+                        onclick="window.location.href='SIGNATURE_YOGURTS.html?id=malai-doi'" style="cursor:pointer;">
+                        <div class="custom-card">
+                            <div class="custom-card-body">
+                                <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="custom-card-logo">
+                                <div class="custom-card-img-wrapper">
+                                    <img src="https://i.imgur.com/YfSzls1.png" alt="Malai doi" class="custom-card-img">
+                                </div>
+                                <div class="custom-card-name">Malai doi</div>
+                            </div>
+                            <div class="custom-card-footer">
+                                <div class="custom-card-price">৳ 400</div>
+                                <div class="custom-card-cart-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="9" cy="21" r="2"></circle>
+                                        <circle cx="20" cy="21" r="2"></circle>
+                                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 5: Cup Malai doi -->
+                    <div class="showcase-item pos-outer-left"
+                        onclick="window.location.href='SIGNATURE_YOGURTS.html?id=cup-malai-doi'"
+                        style="cursor:pointer;">
+                        <div class="custom-card">
+                            <div class="custom-card-body">
+                                <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="custom-card-logo">
+                                <div class="custom-card-img-wrapper">
+                                    <img src="https://i.imgur.com/dEN0Uvp.png" alt="Cup Malai doi"
+                                        class="custom-card-img">
+                                </div>
+                                <div class="custom-card-name">Cup Malai doi</div>
+                            </div>
+                            <div class="custom-card-footer">
+                                <div class="custom-card-price">৳ 70</div>
+                                <div class="custom-card-cart-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="9" cy="21" r="2"></circle>
+                                        <circle cx="20" cy="21" r="2"></circle>
+                                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Semai Symphony Section -->
+        <section class="showcase-section semai-section" id="semai-symphony">
+            <h2 class="showcase-title reveal">Semai Symphony</h2>
+
+            <div class="showcase-container">
+                <div class="showcase-carousel" id="semaiCarousel">
+
+                    <!-- Product 1: Lachcha Semai 200gm (Ghee fry) -->
+                    <div class="showcase-item pos-center"
+                        onclick="window.location.href='SEMAI_SYMPHONY.html?id=lachcha-semai-200gm'"
+                        style="cursor:pointer;">
+                        <div class="custom-card">
+                            <div class="custom-card-body">
+                                <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="custom-card-logo">
+                                <div class="custom-card-img-wrapper">
+                                    <img src="https://i.imgur.com/IZ02Gka.png" alt="Lachcha Semai 200gm (Ghee fry)"
+                                        class="custom-card-img">
+                                </div>
+                                <div class="custom-card-name" style="font-size: 1.2rem;">Lachcha Semai 200gm (Ghee fry)
+                                </div>
+                            </div>
+                            <div class="custom-card-footer">
+                                <div class="custom-card-price">৳ 200</div>
+                                <div class="custom-card-cart-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="9" cy="21" r="2"></circle>
+                                        <circle cx="20" cy="21" r="2"></circle>
+                                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 2: Vermicelli Semai -->
+                    <div class="showcase-item pos-inner-right"
+                        onclick="window.location.href='SEMAI_SYMPHONY.html?id=vermicelli-semai'"
+                        style="cursor:pointer;">
+                        <div class="custom-card">
+                            <div class="custom-card-body">
+                                <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="custom-card-logo">
+                                <div class="custom-card-img-wrapper">
+                                    <img src="https://i.imgur.com/VHS8pSi.png" alt="Vermicelli Semai"
+                                        class="custom-card-img">
+                                </div>
+                                <div class="custom-card-name">Vermicelli Semai</div>
+                            </div>
+                            <div class="custom-card-footer">
+                                <div class="custom-card-price">৳ 150</div>
+                                <div class="custom-card-cart-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="9" cy="21" r="2"></circle>
+                                        <circle cx="20" cy="21" r="2"></circle>
+                                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 3: Lachcha Semai 300gm Box -->
+                    <div class="showcase-item pos-inner-left"
+                        onclick="window.location.href='SEMAI_SYMPHONY.html?id=lachcha-semai-300gm-box'"
+                        style="cursor:pointer;">
+                        <div class="custom-card">
+                            <div class="custom-card-body">
+                                <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="custom-card-logo">
+                                <div class="custom-card-img-wrapper">
+                                    <img src="https://i.imgur.com/x7dd3mk.png" alt="Lachcha Semai 300gm Box"
+                                        class="custom-card-img">
+                                </div>
+                                <div class="custom-card-name" style="font-size: 1.3rem;">Lachcha Semai 300gm Box</div>
+                            </div>
+                            <div class="custom-card-footer">
+                                <div class="custom-card-price">৳ 300</div>
+                                <div class="custom-card-cart-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="9" cy="21" r="2"></circle>
+                                        <circle cx="20" cy="21" r="2"></circle>
+                                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 4: Bhaja Semai -->
+                    <div class="showcase-item pos-outer-left"
+                        onclick="window.location.href='SEMAI_SYMPHONY.html?id=bhaja-semai'" style="cursor:pointer;">
+                        <div class="custom-card">
+                            <div class="custom-card-body">
+                                <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="custom-card-logo">
+                                <div class="custom-card-img-wrapper">
+                                    <img src="https://i.imgur.com/kiQjtR8.png" alt="Bhaja Semai"
+                                        class="custom-card-img">
+                                </div>
+                                <div class="custom-card-name">Bhaja Semai</div>
+                            </div>
+                            <div class="custom-card-footer">
+                                <div class="custom-card-price">৳ 180</div>
+                                <div class="custom-card-cart-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="9" cy="21" r="2"></circle>
+                                        <circle cx="20" cy="21" r="2"></circle>
+                                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 5: Lachcha Semai white -->
+                    <div class="showcase-item pos-outer-right"
+                        onclick="window.location.href='SEMAI_SYMPHONY.html?id=lachcha-semai-white'"
+                        style="cursor:pointer;">
+                        <div class="custom-card">
+                            <div class="custom-card-body">
+                                <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="custom-card-logo">
+                                <div class="custom-card-img-wrapper">
+                                    <img src="https://i.imgur.com/OOaDKt9.png" alt="Lachcha Semai white"
+                                        class="custom-card-img">
+                                </div>
+                                <div class="custom-card-name" style="font-size: 1.4rem;">Lachcha Semai white</div>
+                            </div>
+                            <div class="custom-card-footer">
+                                <div class="custom-card-price">৳ 220</div>
+                                <div class="custom-card-cart-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="9" cy="21" r="2"></circle>
+                                        <circle cx="20" cy="21" r="2"></circle>
+                                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Sweets & Desserts Section -->
+        <section class="showcase-section sweets-section" id="sweets-desserts">
+            <h2 class="showcase-title reveal">Sweets & Desserts</h2>
+
+            <div class="showcase-container">
+                <div class="showcase-carousel" id="sweetsCarousel">
+
+                    <!-- Product 1: Chanar Murki -->
+                    <div class="showcase-item pos-center"
+                        onclick="window.location.href='SWEETS_DESSERTS.html?id=chanar-murki'" style="cursor:pointer;">
+                        <div class="custom-card">
+                            <div class="custom-card-body">
+                                <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="custom-card-logo">
+                                <div class="custom-card-img-wrapper">
+                                    <img src="https://i.imgur.com/YeCcuUw.png" alt="Chanar Murki"
+                                        class="custom-card-img">
+                                </div>
+                                <div class="custom-card-name">Chanar Murki</div>
+                            </div>
+                            <div class="custom-card-footer">
+                                <div class="custom-card-price">৳ 250</div>
+                                <div class="custom-card-cart-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="9" cy="21" r="2"></circle>
+                                        <circle cx="20" cy="21" r="2"></circle>
+                                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 2: Shornomukhi -->
+                    <div class="showcase-item pos-inner-right"
+                        onclick="window.location.href='SWEETS_DESSERTS.html?id=shornomukhi'" style="cursor:pointer;">
+                        <div class="custom-card">
+                            <div class="custom-card-body">
+                                <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="custom-card-logo">
+                                <div class="custom-card-img-wrapper">
+                                    <img src="https://i.imgur.com/UgcfVUo.png" alt="Shornomukhi" class="custom-card-img">
+                                </div>
+                                <div class="custom-card-name">Shornomukhi</div>
+                            </div>
+                            <div class="custom-card-footer">
+                                <div class="custom-card-price">৳ 300</div>
+                                <div class="custom-card-cart-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="9" cy="21" r="2"></circle>
+                                        <circle cx="20" cy="21" r="2"></circle>
+                                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 3: Pera Sandesh -->
+                    <div class="showcase-item pos-inner-left"
+                        onclick="window.location.href='SWEETS_DESSERTS.html?id=pera-sandesh'" style="cursor:pointer;">
+                        <div class="custom-card">
+                            <div class="custom-card-body">
+                                <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="custom-card-logo">
+                                <div class="custom-card-img-wrapper">
+                                    <img src="https://i.imgur.com/XyziBDl.png" alt="Pera Sandesh"
+                                        class="custom-card-img">
+                                </div>
+                                <div class="custom-card-name">Pera Sandesh</div>
+                            </div>
+                            <div class="custom-card-footer">
+                                <div class="custom-card-price">৳ 350</div>
+                                <div class="custom-card-cart-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="9" cy="21" r="2"></circle>
+                                        <circle cx="20" cy="21" r="2"></circle>
+                                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 4: Dudhmon -->
+                    <div class="showcase-item pos-outer-left"
+                        onclick="window.location.href='SWEETS_DESSERTS.html?id=dudhmon'" style="cursor:pointer;">
+                        <div class="custom-card">
+                            <div class="custom-card-body">
+                                <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="custom-card-logo">
+                                <div class="custom-card-img-wrapper">
+                                    <img src="https://i.imgur.com/glh0jMk.png" alt="Dudhmon" class="custom-card-img">
+                                </div>
+                                <div class="custom-card-name">Dudhmon</div>
+                            </div>
+                            <div class="custom-card-footer">
+                                <div class="custom-card-price">৳ 280</div>
+                                <div class="custom-card-cart-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="9" cy="21" r="2"></circle>
+                                        <circle cx="20" cy="21" r="2"></circle>
+                                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 5: Lalmon -->
+                    <div class="showcase-item pos-outer-right"
+                        onclick="window.location.href='SWEETS_DESSERTS.html?id=lalmon'" style="cursor:pointer;">
+                        <div class="custom-card">
+                            <div class="custom-card-body">
+                                <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="custom-card-logo">
+                                <div class="custom-card-img-wrapper">
+                                    <img src="https://i.imgur.com/qqNlx35.png" alt="Lalmon" class="custom-card-img">
+                                </div>
+                                <div class="custom-card-name">Lalmon</div>
+                            </div>
+                            <div class="custom-card-footer">
+                                <div class="custom-card-price">৳ 320</div>
+                                <div class="custom-card-cart-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="9" cy="21" r="2"></circle>
+                                        <circle cx="20" cy="21" r="2"></circle>
+                                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Bakery Delights Section -->
+        <section class="showcase-section bakery-section" id="bakery-delights">
+            <h2 class="showcase-title reveal">Bakery Delights</h2>
+
+            <div class="showcase-container">
+                <div class="showcase-carousel" id="bakeryCarousel">
+
+                    <!-- Product 1: Special Jhal Chanachur 250gm -->
+                    <div class="showcase-item pos-center"
+                        onclick="window.location.href='BAKERY_DELIGHTS.html?id=special-jhal-chanachur'"
+                        style="cursor:pointer;">
+                        <div class="custom-card">
+                            <div class="custom-card-body">
+                                <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="custom-card-logo">
+                                <div class="custom-card-img-wrapper">
+                                    <img src="https://i.imgur.com/vDeIccH.png" alt="Special Jhal Chanachur 250gm"
+                                        class="custom-card-img">
+                                </div>
+                                <div class="custom-card-name" style="font-size: 1.2rem;">Special Jhal Chanachur 250gm
+                                </div>
+                            </div>
+                            <div class="custom-card-footer">
+                                <div class="custom-card-price">৳ 150</div>
+                                <div class="custom-card-cart-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="9" cy="21" r="2"></circle>
+                                        <circle cx="20" cy="21" r="2"></circle>
+                                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 2: Premium Toast  ( 500 gm ) -->
+                    <div class="showcase-item pos-inner-right"
+                        onclick="window.location.href='BAKERY_DELIGHTS.html?id=premium-toast'" style="cursor:pointer;">
+                        <div class="custom-card">
+                            <div class="custom-card-body">
+                                <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="custom-card-logo">
+                                <div class="custom-card-img-wrapper">
+                                    <img src="https://i.imgur.com/WOe0tSw.png" alt="Premium Toast  ( 500 gm )"
+                                        class="custom-card-img">
+                                </div>
+                                <div class="custom-card-name" style="font-size: 1.3rem;">Premium Toast ( 500 gm )</div>
+                            </div>
+                            <div class="custom-card-footer">
+                                <div class="custom-card-price">৳ 180</div>
+                                <div class="custom-card-cart-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="9" cy="21" r="2"></circle>
+                                        <circle cx="20" cy="21" r="2"></circle>
+                                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 3: Classic Toast ( 500 gm ) -->
+                    <div class="showcase-item pos-inner-left"
+                        onclick="window.location.href='BAKERY_DELIGHTS.html?id=classic-toast'" style="cursor:pointer;">
+                        <div class="custom-card">
+                            <div class="custom-card-body">
+                                <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="custom-card-logo">
+                                <div class="custom-card-img-wrapper">
+                                    <img src="https://i.imgur.com/Dl2cVNq.png" alt="Classic Toast ( 500 gm )"
+                                        class="custom-card-img">
+                                </div>
+                                <div class="custom-card-name" style="font-size: 1.3rem;">Classic Toast ( 500 gm )</div>
+                            </div>
+                            <div class="custom-card-footer">
+                                <div class="custom-card-price">৳ 160</div>
+                                <div class="custom-card-cart-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="9" cy="21" r="2"></circle>
+                                        <circle cx="20" cy="21" r="2"></circle>
+                                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 4: Shanpapri ( 500gm ) -->
+                    <div class="showcase-item pos-outer-left"
+                        onclick="window.location.href='BAKERY_DELIGHTS.html?id=shanpapri'" style="cursor:pointer;">
+                        <div class="custom-card">
+                            <div class="custom-card-body">
+                                <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="custom-card-logo">
+                                <div class="custom-card-img-wrapper">
+                                    <img src="https://i.imgur.com/Cg2ojKv.png" alt="Shanpapri ( 500gm )"
+                                        class="custom-card-img">
+                                </div>
+                                <div class="custom-card-name" style="font-size: 1.3rem;">Shanpapri ( 500gm )</div>
+                            </div>
+                            <div class="custom-card-footer">
+                                <div class="custom-card-price">৳ 220</div>
+                                <div class="custom-card-cart-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="9" cy="21" r="2"></circle>
+                                        <circle cx="20" cy="21" r="2"></circle>
+                                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 5: Chanachur 250gm -->
+                    <div class="showcase-item pos-outer-right"
+                        onclick="window.location.href='BAKERY_DELIGHTS.html?id=chanachur'" style="cursor:pointer;">
+                        <div class="custom-card">
+                            <div class="custom-card-body">
+                                <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="custom-card-logo">
+                                <div class="custom-card-img-wrapper">
+                                    <img src="https://i.imgur.com/gJEM0HB.png" alt="Chanachur 250gm"
+                                        class="custom-card-img">
+                                </div>
+                                <div class="custom-card-name" style="font-size: 1.4rem;">Chanachur 250gm</div>
+                            </div>
+                            <div class="custom-card-footer">
+                                <div class="custom-card-price">৳ 140</div>
+                                <div class="custom-card-cart-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="9" cy="21" r="2"></circle>
+                                        <circle cx="20" cy="21" r="2"></circle>
+                                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <script>
+            // Hero Slider Logic
+            let currentSlide = 0;
+            const totalSlides = 3;
+            let autoPlayTimer;
+
+            function changeSlide(direction) {
+                currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+                updateSlider();
+                resetAutoPlay();
+            }
+
+            function updateSlider() {
+                const track = document.getElementById('sliderTrack');
+                track.style.transform = `translateX(-${currentSlide * 100}%)`;
+                // Ken Burns: toggle active class
+                const slides = document.querySelectorAll('.slide');
+                slides.forEach((s, i) => {
+                    s.classList.toggle('active', i === currentSlide);
+                });
+            }
+
+            function startAutoPlay() {
+                autoPlayTimer = setInterval(() => {
+                    currentSlide = (currentSlide + 1) % totalSlides;
+                    updateSlider();
+                }, 5000);
+            }
+
+            function resetAutoPlay() {
+                clearInterval(autoPlayTimer);
+                startAutoPlay();
+            }
+
+            startAutoPlay();
+
+            // Category Selection Logic
+            function selectCategory(element) {
+                const cards = document.querySelectorAll('.category-card');
+                cards.forEach(card => card.classList.remove('active'));
+                element.classList.add('active');
+
+                // Smooth scroll to the corresponding section
+                const categoryName = element.querySelector('.category-name').innerText.toLowerCase().replace(/[\s&]+/g, '-');
+
+                // Map the category names to section IDs accurately
+                const sectionMap = {
+                    'signature-yogurts': 'signature-yogurts',
+                    'semai-symphony': 'semai-symphony',
+                    'sweets-and-desserts': 'sweets-desserts',
+                    'bakery-delight': 'bakery-delights'
+                };
+
+                const targetId = sectionMap[categoryName];
+                const targetSection = document.getElementById(targetId);
+
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+
+            // ── Scroll Reveal for Category Headings (.reveal) ──────────────────
+            (function () {
+                const revealEls = document.querySelectorAll('.reveal');
+                if (!revealEls.length) return;
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target); // fire only once
+                        }
+                    });
+                }, { threshold: 0.15 });
+
+                revealEls.forEach(el => observer.observe(el));
+
+                // Immediately reveal any heading that is already in view on load
+                revealEls.forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight && rect.bottom > 0) {
+                        el.classList.add('visible');
+                    }
+                });
+            })();
+
+            function initCarousel(carouselId) {
+                const carousel = document.getElementById(carouselId);
+                if (!carousel) return;
+
+                const origItems = Array.from(carousel.querySelectorAll('.showcase-item'));
+                let carouselItems = origItems;
+
+                let carouselPositions = ['pos-outer-left', 'pos-inner-left', 'pos-center', 'pos-inner-right', 'pos-outer-right'];
+
+                const mobileOffsets = ['0%', '-50%', '-100%', '-150%', '-200%', '-250%'];
+                const maxState = mobileOffsets.length;
+                let mobileState = 0;
+
+                let desktopTimer = null;
+                let mobileTimer  = null;
+                let isMobile = window.innerWidth <= 768;
+                let cleanupMobileListeners = null;
+
+                function clearAllTimers() {
+                    if (desktopTimer) { clearInterval(desktopTimer); desktopTimer = null; }
+                    if (mobileTimer)  { clearInterval(mobileTimer);  mobileTimer  = null; }
+                }
+
+                function removeClones() {
+                    const all = carousel.querySelectorAll('.showcase-item');
+                    if (all.length > origItems.length) {
+                        for (let i = origItems.length; i < all.length; i++) {
+                            all[i].remove();
+                        }
+                        carouselItems = origItems;
+                    }
+                }
+
+                function cleanupMobile() {
+                    if (cleanupMobileListeners) {
+                        cleanupMobileListeners();
+                        cleanupMobileListeners = null;
+                    }
+                }
+
+                function runDesktopCarousel() {
+                    clearAllTimers();
+                    cleanupMobile();
+                    removeClones();
+
+                    carousel.style.transform  = '';
+                    carousel.style.transition = '';
+
+                    carouselItems.forEach((item, idx) => {
+                        item.classList.remove('pos-outer-left', 'pos-inner-left', 'pos-center', 'pos-inner-right', 'pos-outer-right');
+                        item.classList.add(carouselPositions[idx]);
+                    });
+
+                    desktopTimer = setInterval(() => {
+                        carouselPositions.unshift(carouselPositions.pop());
+                        carouselItems.forEach((item, idx) => {
+                            item.classList.remove('pos-outer-left', 'pos-inner-left', 'pos-center', 'pos-inner-right', 'pos-outer-right');
+                            item.classList.add(carouselPositions[idx]);
+                        });
+                    }, 2300);
+                }
+
+                function runMobileCarousel() {
+                    clearAllTimers();
+                    cleanupMobile();
+                    removeClones();
+                    mobileState = 0;
+
+                    for (let i = 0; i < 2 && i < origItems.length; i++) {
+                        carousel.appendChild(origItems[i].cloneNode(true));
+                    }
+                    carouselItems = carousel.querySelectorAll('.showcase-item');
+
+                    carouselItems.forEach(item => {
+                        item.classList.remove('pos-outer-left', 'pos-inner-left', 'pos-center', 'pos-inner-right', 'pos-outer-right');
+                    });
+
+                    carousel.style.transition = 'none';
+                    carousel.style.transform  = 'translateX(0%)';
+
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            carousel.style.transition = '';
+                        });
+                    });
+
+                    function restartTimer() {
+                        clearAllTimers();
+                        mobileTimer = setInterval(goNext, 3000);
+                    }
+
+                    function goNext() {
+                        const nextState = (mobileState + 1) % maxState;
+                        if (nextState === 0) {
+                            carousel.style.transition = 'none';
+                            carousel.style.transform = 'translateX(0%)';
+                            void carousel.offsetWidth;
+                            carousel.style.transition = '';
+                            requestAnimationFrame(() => {
+                                carousel.style.transform = 'translateX(-50%)';
+                            });
+                            mobileState = 1;
+                        } else {
+                            mobileState = nextState;
+                            carousel.style.transform = `translateX(${mobileOffsets[mobileState]})`;
+                        }
+                    }
+
+                    function goPrev() {
+                        if (mobileState === 0) {
+                            carousel.style.transition = 'none';
+                            carousel.style.transform = 'translateX(-250%)';
+                            void carousel.offsetWidth;
+                            carousel.style.transition = '';
+                            requestAnimationFrame(() => {
+                                carousel.style.transform = 'translateX(-200%)';
+                            });
+                            mobileState = 4;
+                        } else {
+                            mobileState = mobileState - 1;
+                            carousel.style.transform = `translateX(${mobileOffsets[mobileState]})`;
+                        }
+                    }
+
+                    // ── Pointer-based swipe detection ──
+                    const container = carousel.closest('.showcase-container') || carousel;
+                    let startX = 0;
+                    let isSwiping = false;
+
+                    container.style.touchAction = 'pan-y';
+
+                    function onPointerDown(e) {
+                        startX = e.clientX;
+                        isSwiping = false;
+                    }
+
+                    function onPointerUp(e) {
+                        if (startX === 0) return;
+                        const deltaX = e.clientX - startX;
+                        const swiped = Math.abs(deltaX) > 50;
+                        if (swiped) {
+                            if (deltaX < 0) goNext();
+                            else goPrev();
+                            restartTimer();
+                        }
+                        startX = 0;
+                        isSwiping = swiped;
+                    }
+
+                    function onPointerCancel() { startX = 0; }
+
+                    function onClickCapture(e) {
+                        if (isSwiping) {
+                            e.stopPropagation();
+                            e.preventDefault();
+                        }
+                        isSwiping = false;
+                    }
+
+                    container.addEventListener('pointerdown', onPointerDown);
+                    container.addEventListener('pointerup', onPointerUp);
+                    container.addEventListener('pointercancel', onPointerCancel);
+                    container.addEventListener('click', onClickCapture, true);
+
+                    cleanupMobileListeners = () => {
+                        container.removeEventListener('pointerdown', onPointerDown);
+                        container.removeEventListener('pointerup', onPointerUp);
+                        container.removeEventListener('pointercancel', onPointerCancel);
+                        container.removeEventListener('click', onClickCapture, true);
+                        container.style.touchAction = '';
+                    };
+
+                    mobileTimer = setInterval(goNext, 3000);
+                }
+
+                function init() {
+                    isMobile = window.innerWidth <= 768;
+                    if (isMobile) {
+                        runMobileCarousel();
+                    } else {
+                        runDesktopCarousel();
+                    }
+                }
+
+                init();
+
+                let resizeTimeout;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimeout);
+                    resizeTimeout = setTimeout(() => {
+                        const nowMobile = window.innerWidth <= 768;
+                        if (nowMobile !== isMobile) {
+                            isMobile = nowMobile;
+                            init();
+                        }
+                    }, 250);
+                });
+            }
+
+            // Initialise all four product carousels
+            initCarousel('productCarousel');
+            initCarousel('semaiCarousel');
+            initCarousel('sweetsCarousel');
+            initCarousel('bakeryCarousel');
+        </script>
+        <!-- Mobile Sidebar -->
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+        <aside class="mobile-sidebar" id="mobile-sidebar">
+            <button class="mobile-sidebar-close" id="sidebar-close" aria-label="Close Navigation">
+                <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Artistic Brush-stroke X -->
+                    <path d="M25 25 C 35 30, 65 70, 75 75 M75 25 C 65 30, 35 70, 25 75" stroke="#ff1a1a"
+                        stroke-width="12" stroke-linecap="round" stroke-linejoin="round"
+                        style="filter: url(#brush-texture);" />
+                    <defs>
+                        <filter id="brush-texture">
+                            <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="3" result="noise" />
+                            <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R"
+                                yChannelSelector="G" />
+                        </filter>
+                    </defs>
+                </svg>
+            </button>
+            <nav class="mobile-sidebar-nav">
+                <a href="index.html" class="mobile-nav-link">Home</a>
+                <a href="shop.html" class="mobile-nav-link">Shop</a>
+                <a href="cart.html" class="mobile-nav-link">Cart</a>
+                <a href="about.html" class="mobile-nav-link">About Us</a>
+                <a href="contacts.html" class="mobile-nav-link">Contacts</a>
+            </nav>
+        </aside>
+
+        <script>
+            const mobileToggle = document.getElementById('mobile-nav-toggle');
+            const sidebar = document.getElementById('mobile-sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            const closeBtn = document.getElementById('sidebar-close');
+
+            function toggleSidebar() {
+                sidebar.classList.toggle('open');
+                overlay.classList.toggle('visible');
+                document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
+            }
+
+            mobileToggle.addEventListener('click', toggleSidebar);
+            closeBtn.addEventListener('click', toggleSidebar);
+            overlay.addEventListener('click', toggleSidebar);
+
+            // Close on link click
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (sidebar.classList.contains('open')) toggleSidebar();
+                });
+            });
+        </script>
+
+        <!-- Add to Cart Notification -->
+        <div id="cart-notification" class="cart-notification">
+            <div class="cart-notification-content">
+                <span class="cart-notification-text" id="cart-notification-text">• 1X Product Added to your Cart</span>
+                <button class="cart-notification-view-cart">View Cart</button>
+            </div>
+            <button class="cart-notification-close" id="cart-notification-close" aria-label="Close">
+                <svg width="100%" height="100%" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <filter id="crumpled-paper">
+                            <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="5" result="noise" />
+                            <feDiffuseLighting in="noise" lighting-color="#fff" surfaceScale="2" result="light">
+                                <feDistantLight azimuth="45" elevation="60" />
+                            </feDiffuseLighting>
+                            <feBlend mode="multiply" in="SourceGraphic" in2="light" />
+                        </filter>
+                        <filter id="brush-stroke-black">
+                            <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="3" result="noise" />
+                            <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R"
+                                yChannelSelector="G" />
+                        </filter>
+                    </defs>
+                    <path d="M10 10 L90 5 L95 90 L5 95 Z" fill="#f4f4f4" filter="url(#crumpled-paper)" />
+                    <path d="M25 25 C 35 30, 65 70, 75 75 M75 25 C 65 30, 35 70, 25 75" stroke="#111" stroke-width="14"
+                        stroke-linecap="round" stroke-linejoin="round" style="filter: url(#brush-stroke-black);" />
+                </svg>
+            </button>
+        </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const notification = document.getElementById('cart-notification');
+                const notifText = document.getElementById('cart-notification-text');
+                const closeBtn = document.getElementById('cart-notification-close');
+                let hideTimeout;
+
+                function showNotification(productName, qty) {
+                    notifText.innerText = `• ${qty}X ${productName} Added to your Cart`;
+                    notification.classList.remove('show');
+                    void notification.offsetWidth;
+                    notification.classList.add('show');
+                    clearTimeout(hideTimeout);
+                    hideTimeout = setTimeout(() => { notification.classList.remove('show'); }, 2000);
+                }
+
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', () => { notification.classList.remove('show'); clearTimeout(hideTimeout); });
+                }
+
+                const mainAddBtn = document.getElementById('addToCartBtn');
+                if (mainAddBtn) {
+                    mainAddBtn.addEventListener('click', () => {
+                        const qtyInput = document.getElementById('qtyVal');
+                        const qty = qtyInput ? parseInt(qtyInput.value) : 1;
+                        const nameEl = document.querySelector('.product-name');
+                        const name = nameEl ? nameEl.innerText.trim() : 'Product';
+                        const priceEl = document.querySelector('.product-price');
+                        let price = 0;
+                        if (priceEl) price = parseInt(priceEl.innerText.replace(/[^0-9]/g, ''));
+                        const imgEl = document.querySelector('.card-crop');
+                        let image = 'https://i.imgur.com/BSt2lzH.png';
+                        if (imgEl && window.getComputedStyle(imgEl).backgroundImage !== 'none') {
+                            image = window.getComputedStyle(imgEl).backgroundImage.slice(4, -1).replace(/"/g, "");
+                        }
+                        if (typeof addToCart === 'function') { addToCart({ name, price, qty, image }); }
+                        showNotification(name, qty);
+                    });
+                }
+
+                const cardAddBtns = document.querySelectorAll('.custom-card-cart-btn');
+                cardAddBtns.forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const card = btn.closest('.custom-card');
+                        const nameEl = card ? card.querySelector('.custom-card-name') : null;
+                        const name = nameEl ? nameEl.innerText.trim() : 'Product';
+                        const priceEl = card ? card.querySelector('.custom-card-price') : null;
+                        let price = 0;
+                        if (priceEl) price = parseInt(priceEl.innerText.replace(/[^0-9]/g, ''));
+                        const imgEl = card ? card.querySelector('.custom-card-img') : null;
+                        let image = 'https://i.imgur.com/BSt2lzH.png';
+                        if (imgEl && imgEl.src) image = imgEl.src;
+                        if (typeof addToCart === 'function') { addToCart({ name, price, qty: 1, image }); }
+                        showNotification(name, 1);
+                    });
+                });
+
+                const viewCartBtn = document.querySelector('.cart-notification-view-cart');
+                if (viewCartBtn) {
+                    viewCartBtn.addEventListener('click', () => { window.location.href = 'cart.html'; });
+                }
+            });
+        </script>
+
+
+
+        <script src="cart.js"></script>
+
+        <!-- Footer Section -->
+        <footer class="site-footer home-footer">
+            <div class="footer-container">
+                <!-- Left: Logo & About -->
+                <div class="footer-left">
+                    <img src="https://i.imgur.com/kB9G3e9.png" alt="Food Hustle Logo" class="footer-logo">
+                    <h2 class="footer-about-title">About Us</h2>
+                    <div class="footer-about-text">
+                        Join us at Food Hustle,<br>
+                        where tradition meets taste,<br>
+                        and every meal is a celebration of local flavor!
+                    </div>
+                </div>
+
+                <!-- Middle: Links Columns -->
+                <div class="footer-links-container">
+                    <div class="footer-links-col">
+                        <a href="index.html" class="footer-link">Home</a>
+                        <a href="shop.html" class="footer-link">Shop</a>
+                        <a href="cart.html" class="footer-link">Cart</a>
+                        <a href="#" class="footer-link">My account</a>
+                        <a href="contacts.html" class="footer-link">Contact us</a>
+                    </div>
+                    <div class="footer-links-col">
+                        <a href="about.html" class="footer-link">About Us</a>
+                        <a href="#" class="footer-link">Shipping Policy</a>
+                        <a href="#" class="footer-link">Refund Policy</a>
+                        <a href="#" class="footer-link">Privacy Policy</a>
+                        <a href="#" class="footer-link">Delivery Info</a>
+                    </div>
+                </div>
+
+                <!-- Right: Business Info & Newsletter -->
+                <div class="footer-right">
+                    <!-- Newsletter Form -->
+                    <div class="footer-newsletter">
+                        <div class="newsletter-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00c853"
+                                stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                <polyline points="22,6 12,13 2,6" />
+                            </svg>
+                        </div>
+                        <input type="email" class="newsletter-input" placeholder="Your Email">
+                        <button class="newsletter-btn">Subscribe</button>
+                    </div>
+
+                    <!-- Social Media Links -->
+                    <div class="footer-social-links">
+                        <a href="https://www.facebook.com/profile.php?id=61587919453376&rdid=Boj2LHftZtfuxeEz" class="social-icon-link" target="_blank">
+                            <i class="fa-brands fa-facebook" style="color: rgb(69, 12, 233);"></i>
+                        </a>
+                        <a href="https://x.com/IAdhum29444" class="social-icon-link" target="_blank">
+                            <i class="fa-brands fa-square-x-twitter" style="color: rgb(6, 12, 16);"></i>
+                        </a>
+                        <a href="https://Wa.me/+8801817929358" class="social-icon-link" target="_blank">
+                            <i class="fa-brands fa-square-whatsapp" style="color: hsl(136, 74%, 52%);"></i>
+                        </a>
+                    </div>
+
+                    <!-- Payment Accept Section -->
+                    <div class="footer-payment-section">
+                        <h3 class="payment-title">Payment Accept</h3>
+                        <div class="payment-logos">
+                            <img src="https://i.imgur.com/78kr3Ek.png" alt="bKash" class="payment-logo-img">
+                            <img src="https://i.imgur.com/i3sv8EW.png" alt="Rocket" class="payment-logo-img">
+                            <img src="https://i.imgur.com/YyPMeYi.png" alt="Nagad" class="payment-logo-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+</body>
+
+</html>

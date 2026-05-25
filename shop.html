@@ -1,0 +1,710 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - Food Lab</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Outfit:wght@400;700&family=Lato:wght@400;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* ========== SHOP PAGE SPECIFIC STYLES ========== */
+        body {
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Entrance Animation */
+        .shop-entrance {
+            animation: swipeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            opacity: 0;
+        }
+
+        @keyframes swipeUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Sticky Section */
+        .sticky-wrapper {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        /* Breadcrumb */
+        .breadcrumb-bar {
+            background-color: #fff;
+            padding: 12px 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+            color: #555;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .breadcrumb-bar a { text-decoration: none; color: #555; transition: color 0.2s; }
+        .breadcrumb-bar a:hover { color: #2a9d42; }
+        .breadcrumb-bar .sep { color: #ccc; }
+        .breadcrumb-bar .current { color: #2a9d42; font-weight: 500; }
+
+        /* Category Nav */
+        .category-nav {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            padding: 20px 30px;
+            background: #fff;
+        }
+
+        .category-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .category-item:hover { transform: translateY(-3px); }
+
+        .category-icon {
+            width: 90px;
+            height: 90px;
+            background-color: #0d2b1d;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .category-item.active .category-icon {
+            box-shadow: 0 0 0 4px #2a9d42;
+            background-color: #2a9d42;
+        }
+
+        .category-icon img {
+            width: 75%;
+            height: 75%;
+            object-fit: contain;
+        }
+
+        .category-text {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #555;
+            text-align: center;
+            transition: color 0.3s ease;
+            line-height: 1.2;
+        }
+
+        .category-item.active .category-text {
+            color: #2a9d42;
+        }
+
+        /* Product Grid */
+        .product-grid-container {
+            padding: 40px 30px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 30px;
+        }
+
+        /* Custom Card Overrides for Shop */
+        .custom-card {
+            background-color: #fff;
+            border-radius: 25px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 500px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .custom-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+
+        .custom-card-body {
+            padding: 15px 20px 10px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .custom-card-logo {
+            width: 55px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            opacity: 0.8;
+        }
+
+        .custom-card-img-wrapper {
+            width: 100%;
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+
+        .custom-card-img {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+        }
+
+        .custom-card-name {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: #2a9d42;
+            margin-top: auto;
+        }
+
+        .custom-card-footer {
+            padding: 15px 20px;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #f2f2f2;
+        }
+
+        .custom-card-price {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: #2a9d42;
+        }
+
+        .custom-card-cart-btn {
+            width: 50px;
+            height: 50px;
+            background-color: #fff;
+            border: 2px solid #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .custom-card-cart-btn:hover {
+            background-color: #000;
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .custom-card-cart-btn:hover svg {
+            stroke: #fff;
+        }
+
+        .custom-card-cart-btn svg {
+            width: 24px;
+            height: 24px;
+            stroke: #000;
+            stroke-width: 2.5;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 1400px) {
+            .product-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+        @media (max-width: 1100px) {
+            .product-grid { grid-template-columns: repeat(3, 1fr); }
+            .category-nav { gap: 30px; }
+            .category-icon { width: 75px; height: 75px; }
+        }
+        @media (max-width: 768px) {
+            .product-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .product-grid-container { padding: 20px 15px; }
+            .breadcrumb-bar { padding: 10px 15px; }
+            .category-nav { 
+                justify-content: flex-start; 
+                overflow-x: auto; 
+                padding: 15px;
+                gap: 20px;
+                -webkit-overflow-scrolling: touch;
+            }
+            .category-nav::-webkit-scrollbar { display: none; }
+            .category-item { flex: 0 0 auto; }
+            .category-icon { width: 65px; height: 65px; border-radius: 12px; }
+            .category-text { font-size: 0.8rem; }
+        }
+
+        /* ========== CART NOTIFICATION ========== */
+        .cart-notification {
+            position: fixed;
+            top: -100px;
+            right: 30px;
+            background-color: #4b4b4b;
+            border-radius: 12px;
+            padding: 15px 50px 15px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            z-index: 10000;
+            opacity: 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        @keyframes popDownDesktop {
+            0% { top: -100px; opacity: 0; }
+            50% { opacity: 0.7; }
+            100% { top: 25px; opacity: 1; }
+        }
+        @keyframes popDownMobile {
+            0% { top: -100px; opacity: 0; }
+            50% { opacity: 0.7; }
+            100% { top: 60px; opacity: 1; }
+        }
+        .cart-notification.show {
+            animation: popDownDesktop 0.4s forwards;
+        }
+        .cart-notification-content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .cart-notification-text {
+            color: #fff;
+            font-family: 'Lato', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 400;
+            white-space: nowrap;
+        }
+        .cart-notification-view-cart {
+            background-color: #fff;
+            color: #2a9d42;
+            border: none;
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+        .cart-notification-view-cart:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+        .cart-notification-close {
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            transition: transform 0.2s;
+            width: 34px;
+            height: 34px;
+        }
+        .cart-notification-close:hover {
+            transform: scale(1.15);
+        }
+        @media (max-width: 768px) {
+            .cart-notification {
+                right: 0;
+                left: 0;
+                border-radius: 0;
+                width: 100%;
+                padding: 15px 20px;
+                top: -100px;
+            }
+            .cart-notification.show {
+                animation: popDownMobile 0.4s forwards;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header (Same as index.html) -->
+    
+    <div class="sticky-top-part">
+        <header class="main-header">
+            <div class="header-content">
+                <button class="hamburger-btn" id="mobile-nav-toggle" aria-label="Open Navigation">
+                    <span></span><span></span><span></span>
+                </button>
+                <nav class="header-nav">
+                    <div class="nav-row">
+                        <a href="index.html" class="nav-link">Home</a>
+                        <a href="shop.html" class="nav-link">Shop</a>
+                        <a href="cart.html" class="nav-link">Cart</a>
+                    </div>
+                    <div class="nav-row">
+                        <a href="about.html" class="nav-link">About Us</a>
+                        <a href="contacts.html" class="nav-link">Contacts</a>
+                    </div>
+                </nav>
+                <div class="header-center">
+                    <img src="https://i.imgur.com/BSt2lzH.png" alt="Food Lab Logo" class="logo" id="food-lab-logo">
+                    <div class="slogan-wrapper">
+                        <div class="slogan slogan-text-container" id="food-lab-slogan">
+                            <span class="slogan-part-1">GET A NEW EXPERIENCE OF</span>
+                            <span class="slogan-part-2">
+                                <span class="stagger-letter high">T</span>
+                                <span class="stagger-letter low">A</span>
+                                <span class="stagger-letter high">S</span>
+                                <span class="stagger-letter low">T</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-icons">
+                    <a href="#" class="header-icon-btn" aria-label="Search">
+                        <i class="fa-brands fa-searchengin" style="color: rgb(255, 255, 255);"></i>
+                    </a>
+                    <a href="#" class="header-icon-btn" aria-label="Profile">
+                        <i class="fa-solid fa-user-lock" style="color: rgb(255, 255, 255);"></i>
+                    </a>
+                    <a href="#" class="header-icon-btn" aria-label="Wishlist">
+                        <i class="fa-solid fa-heart" style="color: rgb(255, 255, 255);"></i>
+                    </a>
+                    <a href="cart.html" class="header-icon-btn" aria-label="Cart" style="position:relative; display:inline-block;">
+                        <i class="fa-solid fa-cart-shopping" style="color: rgb(255, 255, 255);"></i>
+                        <i class="fa-solid fa-circle-plus fa-2xs cart-plus-anim" style="color:#db3317;"></i>
+                        <span class="cart-badge telegraf-font" id="cartBadge" style="display:flex; position:absolute; top:-6px; right:-6px; background:#2a9d42; color:#fff; font-size:11px; font-family:'Canva Sans', sans-serif; font-weight:normal; width:18px; height:18px; border-radius:50%; align-items:center; justify-content:center; box-shadow:0 2px 4px rgba(0,0,0,0.2);">0</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+    </div>
+
+
+    <!-- Mobile Sidebar -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+    <aside class="mobile-sidebar" id="mobile-sidebar">
+        <button class="mobile-sidebar-close" id="sidebar-close" aria-label="Close Navigation">
+            <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M25 25 C 35 30, 65 70, 75 75 M75 25 C 65 30, 35 70, 25 75" stroke="#ff1a1a" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" style="filter: url(#brush-texture);" />
+                <defs>
+                    <filter id="brush-texture">
+                        <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="3" result="noise" />
+                        <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G" />
+                    </filter>
+                </defs>
+            </svg>
+        </button>
+        <nav class="mobile-sidebar-nav">
+            <a href="index.html" class="mobile-nav-link">Home</a>
+            <a href="shop.html" class="mobile-nav-link">Shop</a>
+            <a href="cart.html" class="mobile-nav-link">Cart</a>
+            <a href="about.html" class="mobile-nav-link">About Us</a>
+            <a href="contacts.html" class="mobile-nav-link">Contacts</a>
+        </nav>
+    </aside>
+
+    <div class="shop-entrance">
+        <!-- Sticky Header & Category Bar -->
+        <div class="sticky-wrapper">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb-bar">
+                <a href="index.html">Home</a>
+                <span class="sep">></span>
+                <span class="current">Shop</span>
+            </nav>
+
+            <!-- Category Navigation Bar -->
+            <nav class="category-nav">
+                <div class="category-item active" onclick="filterCategory('all', this)">
+                    <div class="category-icon" style="background-color: #2a9d42;"><img src="https://i.imgur.com/vcwb7PB.png" alt="All"></div>
+                    <span class="category-text">All<br>Products</span>
+                </div>
+                <div class="category-item" onclick="filterCategory('yogurts', this)">
+                    <div class="category-icon"><img src="https://i.imgur.com/vcwb7PB.png" alt="Signature Yogurts"></div>
+                    <span class="category-text">Signature<br>Yogurts</span>
+                </div>
+                <div class="category-item" onclick="filterCategory('semai', this)">
+                    <div class="category-icon"><img src="https://i.imgur.com/mFuMdck.png" alt="Semai Symphony"></div>
+                    <span class="category-text">Semai<br>Symphony</span>
+                </div>
+                <div class="category-item" onclick="filterCategory('sweets', this)">
+                    <div class="category-icon"><img src="https://i.imgur.com/fD2tX8E.png" alt="Sweets and Desserts"></div>
+                    <span class="category-text">Sweets and<br>Desserts</span>
+                </div>
+                <div class="category-item" onclick="filterCategory('bakery', this)">
+                    <div class="category-icon"><img src="https://i.imgur.com/ooh2fie.png" alt="Bakery Delight"></div>
+                    <span class="category-text">Bakery<br>Delight</span>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Product Grid Section -->
+        <main class="product-grid-container">
+            <div class="product-grid" id="productGrid">
+                <!-- Products injected by JS -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Add to Cart Notification -->
+    <div id="cart-notification" class="cart-notification">
+        <div class="cart-notification-content">
+            <span class="cart-notification-text" id="cart-notification-text">• 1X Product Added to your Cart</span>
+            <button class="cart-notification-view-cart" onclick="window.location.href='cart.html'">View Cart</button>
+        </div>
+        <button class="cart-notification-close" id="cart-notification-close" aria-label="Close">
+            <svg width="100%" height="100%" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <filter id="crumpled-paper">
+                        <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="5" result="noise" />
+                        <feDiffuseLighting in="noise" lighting-color="#fff" surfaceScale="2" result="light">
+                            <feDistantLight azimuth="45" elevation="60" />
+                        </feDiffuseLighting>
+                        <feBlend mode="multiply" in="SourceGraphic" in2="light" />
+                    </filter>
+                    <filter id="brush-stroke-black">
+                        <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="3" result="noise" />
+                        <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G" />
+                    </filter>
+                </defs>
+                <path d="M10 10 L90 5 L95 90 L5 95 Z" fill="#f4f4f4" filter="url(#crumpled-paper)" />
+                <path d="M25 25 C 35 30, 65 70, 75 75 M75 25 C 65 30, 35 70, 25 75" stroke="#111" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" style="filter: url(#brush-stroke-black);" />
+            </svg>
+        </button>
+    </div>
+
+    
+    
+<script src="cart.js"></script>
+    <script>
+        const allProducts = [
+            // Signature Yogurts
+            { id: 'cup-doi', cat: 'yogurts', name: 'Cup Doi', price: 50, image: 'https://i.imgur.com/ZxHcqMH.png', page: 'Cup-doi.html' },
+            { id: 'sada-doi', cat: 'yogurts', name: 'Sada Doi', price: 200, image: 'https://i.imgur.com/L6y2OGq.png', page: 'Sada-doi.html' },
+            { id: 'premium-doi', cat: 'yogurts', name: 'Premium Doi', price: 350, image: 'https://i.imgur.com/6cVEtjY.png', page: 'Premium-doi.html' },
+            { id: 'malai-doi', cat: 'yogurts', name: 'Malai Doi', price: 400, image: 'https://i.imgur.com/YfSzls1.png', page: 'malai-doi.html' },
+            { id: 'cup-malai-doi', cat: 'yogurts', name: 'Cup Malai Doi', price: 70, image: 'https://i.imgur.com/dEN0Uvp.png', page: 'Cup-malai-doi.html' },
+
+            // Semai Symphony
+            { id: 'lachcha-semai-white', cat: 'semai', name: 'Lachcha Semai white', price: 220, image: 'https://i.imgur.com/OOaDKt9.png', page: 'Lachcha-Semai-white.html' },
+            { id: 'bhaja-semai', cat: 'semai', name: 'Bhaja Semai', price: 180, image: 'https://i.imgur.com/kiQjtR8.png', page: 'Bhaja-Semai.html' },
+            { id: 'lachcha-semai-300gm-box', cat: 'semai', name: 'Lachcha Semai 300gm Box', price: 300, image: 'https://i.imgur.com/x7dd3mk.png', page: 'Lachcha-Semai-300gm-Box.html' },
+            { id: 'vermicelli-semai', cat: 'semai', name: 'Vermicelli Semai', price: 150, image: 'https://i.imgur.com/VHS8pSi.png', page: 'Vermicelli-Semai.html' },
+            { id: 'lachcha-semai-200gm', cat: 'semai', name: 'Lachcha Semai 200gm (Ghee fry)', price: 200, image: 'https://i.imgur.com/IZ02Gka.png', page: 'Lachcha-Semai-200gm.html' },
+
+            // Sweets and Desserts
+            { id: 'chanar-murki', cat: 'sweets', name: 'Chanar Murki', price: 250, image: 'https://i.imgur.com/YeCcuUw.png', page: 'Chanar-Murki.html' },
+            { id: 'shornomukhi', cat: 'sweets', name: 'Shornomukhi', price: 300, image: 'https://i.imgur.com/UgcfVUo.png', page: 'Shornomukhi.html' },
+            { id: 'pera-sandesh', cat: 'sweets', name: 'Pera Sandesh', price: 350, image: 'https://i.imgur.com/XyziBDl.png', page: 'Pera-Sandesh.html' },
+            { id: 'dudhmon', cat: 'sweets', name: 'Dudhmon', price: 280, image: 'https://i.imgur.com/glh0jMk.png', page: 'Dudhmon.html' },
+            { id: 'lalmon', cat: 'sweets', name: 'Lalmon', price: 320, image: 'https://i.imgur.com/qqNlx35.png', page: 'Lalmon.html' },
+
+            // Bakery Delight
+            { id: 'chanachur', cat: 'bakery', name: 'Chanachur 250gm', price: 140, image: 'https://i.imgur.com/gJEM0HB.png', page: 'Chanachur.html' },
+            { id: 'shanpapri', cat: 'bakery', name: 'Shanpapri ( 500gm )', price: 220, image: 'https://i.imgur.com/Cg2ojKv.png', page: 'Shanpapri.html' },
+            { id: 'classic-toast', cat: 'bakery', name: 'Classic Toast ( 500 gm )', price: 160, image: 'https://i.imgur.com/Dl2cVNq.png', page: 'Classic-Toast.html' },
+            { id: 'premium-toast', cat: 'bakery', name: 'Premium Toast ( 500 gm )', price: 180, image: 'https://i.imgur.com/WOe0tSw.png', page: 'Premium-Toast.html' },
+            { id: 'special-jhal-chanachur', cat: 'bakery', name: 'Special Jhal Chanachur 250gm', price: 150, image: 'https://i.imgur.com/vDeIccH.png', page: 'Special-Jhal-Chanachur.html' }
+        ];
+
+        function renderProducts(productsToRender) {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+            
+            productsToRender.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'custom-card';
+                card.onclick = () => window.location.href = p.page;
+                
+                card.innerHTML = `
+                    <div class="custom-card-body">
+                        <img src="https://i.imgur.com/BSt2lzH.png" class="custom-card-logo">
+                        <div class="custom-card-img-wrapper">
+                            <img src="${p.image}" class="custom-card-img">
+                        </div>
+                        <div class="custom-card-name">${p.name}</div>
+                    </div>
+                    <div class="custom-card-footer">
+                        <div class="custom-card-price">৳ ${p.price}</div>
+                        <div class="custom-card-cart-btn" onclick="event.stopPropagation(); handleAddToCart('${p.name}', ${p.price}, '${p.image}')">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="9" cy="21" r="2"></circle><circle cx="20" cy="21" r="2"></circle>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                            </svg>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterCategory(cat, element) {
+            document.querySelectorAll('.category-item').forEach(item => {
+                item.classList.remove('active');
+                item.querySelector('.category-icon').style.backgroundColor = '#0d2b1d';
+            });
+            element.classList.add('active');
+            element.querySelector('.category-icon').style.backgroundColor = '#2a9d42';
+
+            if (cat === 'all') {
+                renderProducts(allProducts);
+            } else {
+                const filtered = allProducts.filter(p => p.cat === cat);
+                renderProducts(filtered);
+            }
+
+            const gridTop = document.querySelector('.product-grid-container').offsetTop - 150;
+            window.scrollTo({ top: gridTop, behavior: 'smooth' });
+        }
+
+        function handleAddToCart(name, price, image) {
+            if (typeof addToCart === 'function') {
+                addToCart({ name, price, qty: 1, image });
+                showNotification(name, 1);
+            }
+        }
+
+        const notification = document.getElementById('cart-notification');
+        const notifText = document.getElementById('cart-notification-text');
+        const notifClose = document.getElementById('cart-notification-close');
+        let hideTimeout;
+
+        function showNotification(productName, qty) {
+            notifText.innerText = `• ${qty}X ${productName} Added to your Cart`;
+            notification.classList.remove('show');
+            void notification.offsetWidth;
+            notification.classList.add('show');
+            clearTimeout(hideTimeout);
+            hideTimeout = setTimeout(() => { notification.classList.remove('show'); }, 2000);
+        }
+
+        if (notifClose) {
+            notifClose.addEventListener('click', () => { 
+                notification.classList.remove('show'); 
+                clearTimeout(hideTimeout); 
+            });
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const catParam = urlParams.get('cat');
+        if (catParam) {
+            const targetItem = document.querySelector(`.category-item[onclick*="'${catParam}'"]`);
+            if (targetItem) { filterCategory(catParam, targetItem); }
+            else { renderProducts(allProducts); }
+        } else {
+            renderProducts(allProducts);
+        }
+
+        // Sidebar logic
+        const mobileToggle = document.getElementById('mobile-nav-toggle');
+        const sidebar = document.getElementById('mobile-sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        const closeBtn = document.getElementById('sidebar-close');
+
+        mobileToggle.addEventListener('click', () => {
+            sidebar.classList.add('open');
+            overlay.classList.add('visible');
+        });
+
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('visible');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('visible');
+        });
+    </script>
+
+    <!-- Footer Section -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <!-- Left: Logo & About -->
+            <div class="footer-left">
+                <img src="https://i.imgur.com/kB9G3e9.png" alt="Food Hustle Logo" class="footer-logo">
+                <h2 class="footer-about-title">About Us</h2>
+                <div class="footer-about-text">
+                    Join us at Food Hustle,<br>
+                    where tradition meets taste,<br>
+                    and every meal is a celebration of local flavor!
+                </div>
+            </div>
+
+            <!-- Middle: Links Columns -->
+            <div class="footer-links-container">
+                <div class="footer-links-col">
+                    <a href="index.html" class="footer-link">Home</a>
+                    <a href="shop.html" class="footer-link">Shop</a>
+                    <a href="cart.html" class="footer-link">Cart</a>
+                    <a href="#" class="footer-link">My account</a>
+                    <a href="contacts.html" class="footer-link">Contact us</a>
+                </div>
+                <div class="footer-links-col">
+                    <a href="about.html" class="footer-link">About Us</a>
+                    <a href="#" class="footer-link">Shipping Policy</a>
+                    <a href="#" class="footer-link">Refund Policy</a>
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Delivery Info</a>
+                </div>
+            </div>
+
+                            <!-- Right: Business Info & Newsletter -->
+                <div class="footer-right">
+                    <!-- Newsletter Form -->
+                    <div class="footer-newsletter">
+                        <div class="newsletter-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00c853"
+                                stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                <polyline points="22,6 12,13 2,6" />
+                            </svg>
+                        </div>
+                        <input type="email" class="newsletter-input" placeholder="Your Email">
+                        <button class="newsletter-btn">Subscribe</button>
+                    </div>
+
+                    <!-- Social Media Links -->
+                    <div class="footer-social-links">
+                        <a href="https://www.facebook.com/profile.php?id=61587919453376&rdid=Boj2LHftZtfuxeEz" class="social-icon-link" target="_blank">
+                            <i class="fa-brands fa-facebook" style="color: rgb(69, 12, 233);"></i>
+                        </a>
+                        <a href="https://x.com/IAdhum29444" class="social-icon-link" target="_blank">
+                            <i class="fa-brands fa-square-x-twitter" style="color: rgb(6, 12, 16);"></i>
+                        </a>
+                        <a href="https://Wa.me/+8801817929358" class="social-icon-link" target="_blank">
+                            <i class="fa-brands fa-square-whatsapp" style="color: hsl(136, 74%, 52%);"></i>
+                        </a>
+                    </div>
+
+                    <!-- Payment Accept Section -->
+                    <div class="footer-payment-section">
+                        <h3 class="payment-title">Payment Accept</h3>
+                        <div class="payment-logos">
+                            <img src="https://i.imgur.com/78kr3Ek.png" alt="bKash" class="payment-logo-img">
+                            <img src="https://i.imgur.com/i3sv8EW.png" alt="Rocket" class="payment-logo-img">
+                            <img src="https://i.imgur.com/YyPMeYi.png" alt="Nagad" class="payment-logo-img">
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </footer>
+
+</body>
+</html>
