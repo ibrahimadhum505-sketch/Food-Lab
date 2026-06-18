@@ -927,7 +927,7 @@
             };
 
             // Send to backend asynchronously
-            fetch('http://localhost:3000/api/order', {
+            fetch('https://food-lab-ko0t.onrender.com/api/order', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ customer, cart, totals })
